@@ -2,15 +2,24 @@ from django.urls import path, include
 from rest_framework import routers
 from . import views
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'announcement', views.AnnouncementViewSet)
 
 urlpatterns = [
     #path('', include(router.urls)),
-    path('api/', include(router.urls)),
+    path('api/', include([
+        path('announcements/', include([
+            path('', views.announcements, name='announcements'),
+            path('<int:pk>/', views.announcement_detail, name='announcement_detail'),
+            path('<int:pk>/favourite/', views.post_favourite, name='post_favourite'),
+        ])),
+        path('favourite/', views.my_favourite, name='my_favourite'),
+        path('users/',views.UsersViewSet, name= 'users' ),
+        #path('announcements/',views.AnnouncementsViewSet, name= 'announcements' ),
+    ])),
+    
     path('login/', views.google_login, name='google_login'),
     path('login/auth/', views.google_authenticate, name='google_authenticate'),
-    path('home/', views.home, name='home'),
+    path('session/', views.session, name='session'),
     path('logout/', views.logout, name='logout'),
+    
+    
 ]

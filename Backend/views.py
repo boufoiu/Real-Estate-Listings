@@ -3,31 +3,33 @@ from json import JSONDecoder
 import json
 from pathlib import Path
 from django.shortcuts import render
-from .models import User, Announcement
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import UserSerializer, AnnouncementSerializer
+from .models import User, Announcement, Favourite
+from .serializers import FavouriteSerializer, UserSerializer, AnnouncementSerializer
 from django.http import HttpResponseRedirect, HttpRequest, HttpResponse
-import urllib
 import requests
 from django.shortcuts import get_list_or_404
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
-def home(request):
+
+def session(request):
     return HttpResponse(request.session.get('email'))
 
 
-
-class UserViewSet(viewsets.ModelViewSet):
+@api_view(['GET'])
+def UsersViewSet(request):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
-    #permission_classes = [permissions.IsAuthenticated]
+    serializer = UserSerializer(queryset, many= True)
+    return Response(serializer.data)
 
-
-class AnnouncementViewSet(viewsets.ModelViewSet):
+@api_view(['GET'])
+def AnnouncementsViewSet(request):
     queryset = Announcement.objects.all()
-    serializer_class = AnnouncementSerializer
-    #permission_classes = [permissions.IsAuthenticated]
+    serializer = AnnouncementSerializer(queryset, many= True)
+    return Response(serializer.data)
+    
 
 
 def google_login(request):
@@ -87,4 +89,76 @@ def google_authenticate(request):
 def logout(request):
     request.session.flush()
     return HttpResponseRedirect('/login/')
+    
+    
+@api_view(['GET', 'DELETE']) # Add modifier une annonce
+def announcement_detail(request, pk):
+    
+    try:
+        announcement = Announcement.objects.get(pk = pk)
+    except Announcement.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    if request.method=='GET':
+        serializer = AnnouncementSerializer(announcement)
+        return Response(serializer.data)
+    elif request.method=='DELETE':
+        if 'email' in request.session:
+            serializer = AnnouncementSerializer(announcement)
+            if announcement.Owner_id == request.session['email']:
+                announcement.delete()
+                return Response(status = status.HTTP_204_NO_CONTENT)
+            return Response(status= status.HTTP_401_UNAUTHORIZED)
+           
+
+
+@api_view(['GET', 'POST'])
+def announcements(request):
+    try:
+        announcements = Announcement.objects.all()
+    except Announcement.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    if request.method=='GET':
+        serializer = AnnouncementSerializer(announcements, many= True)
+        return Response(serializer.data)
+    elif request.method=='POST':
+        serializer = AnnouncementSerializer(data= request.data)
+        
+        if serializer.is_valid():
+            if 'email' in request.session:
+                serializer.validated_data['Owner_id'] = request.session['email']
+                serializer.save()
+                return Response(serializer.data, status = status.HTTP_201_CREATED)
+            return Response(status = status.HTTP_401_UNAUTHORIZED)
+        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    
+
+@api_view(['GET'])
+def post_favourite(request, pk):
+    try:
+        announcement = Announcement.objects.get(pk = pk)        
+    except Announcement.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    if 'email' in request.session:
+        try:
+            Favourite.objects.get(user = User.objects.get(pk = request.session['email']),announcement= announcement )
+        except Favourite.DoesNotExist:
+            favorite = Favourite(user = User.objects.get(pk = request.session['email']), announcement= announcement)
+            favorite.save()
+        return HttpResponseRedirect('/api/favourite/')
+    return Response(status = status.HTTP_401_UNAUTHORIZED)
+     
+    
+@api_view(['GET'])
+def my_favourite(request):
+    try:
+        favourites = get_list_or_404(Favourite, user = request.session['email'])
+    except Favourite.DoesNotExist:
+        favourites=[]        
+    announcements = []
+    for f in favourites:
+        announcements.append(Announcement.objects.get(pk = f.announcement.pk))
+    #FavouriteViewSet.queryset = announcements
+    serializer = AnnouncementSerializer(announcements, many=True)
+    return Response(serializer.data)
+
     

@@ -1,2 +1,0 @@
-user = User(FirstName = r.json(),LastName="anis",PfP='https://www.bing.com/search?q=orange&cvid=024ae8340d6d4f4ea7f56ec9c7adfb39&aqs=edge.0.69i59j0l6j69i60l2.903j0j1&pglt=41&FORM=ANNTA1&PC=U531',PhoneNumber='0646536584',Email='oibhun@khbc.dz')
-    user.save()

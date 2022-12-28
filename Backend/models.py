@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 class User(models.Model):
   FirstName = models.CharField(max_length=100)
   LastName = models.CharField(max_length=100)
-  Email = models.EmailField(primary_key=True)
+  Email = models.EmailField(primary_key=True) 
   PfP = models.URLField(max_length=250)
   PhoneRegex = RegexValidator(regex= r'0\s*(5|6|7)(\s*\d){8}\s*', message='PhoneNumber incorect') #vaider la phorme du numéro de tlphn
   PhoneNumber = models.CharField(validators=[PhoneRegex],max_length=20,blank=True)
@@ -43,4 +43,8 @@ class Announcement(models.Model):
 class Admin(models.Model):
   Me = models.ForeignKey(User, on_delete=models.CASCADE)
   
+  
+class Favourite(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  announcement = models.ForeignKey(Announcement, on_delete=models.CASCADE)
   
