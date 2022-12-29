@@ -1,0 +1,80 @@
+.main-image{
+    background-image: url(../mainimage.jpg);
+    position: absolute;
+    width: 500px;
+    height: 600px;
+    left: 50%;
+    top: 15%;
+    border-top-left-radius: 250px;
+    border-top-right-radius: 270px;
+    filter: drop-shadow(8px 4px 24px rgba(0, 0, 0, 0.25));
+}
+
+.welcome-text{
+    position: absolute;
+    top: 170px;
+    left: 100px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1 {
+
+    font-weight: 500;
+    font-size: 70px;
+    color: white;
+}
+
+h3{
+    font-family: 'Poppins';
+    color: white;
+    font-size: small;
+    font-weight: 100;
+    margin-top: 15px;
+}
+.org-text{
+    color: #FF8140;
+}
+
+
+.start-button{
+    border: none;
+    background-color: #FF8140;
+    padding: 12px 15px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-left: 20px;
+    width: fit-content;
+    margin-top: 25px;
+}
+
+.start-button:hover{
+    transform: scale(1.13);
+    cursor: pointer;
+}
+
+div li{
+    margin-top: 20px;
+}
+
+ul li{
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+}
+
+.blue-text{
+    color: #2590BA;
+}
+
+.big-text{
+    font-weight: 500;
+    font-size: 45px;
+}
