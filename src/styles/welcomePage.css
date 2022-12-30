@@ -1,5 +1,11 @@
+.main-div{
+    height: 100vh;
+    width: 100%;
+    background-color: #040F17;
+}
+
 .main-image{
-    background-image: url(../mainimage.jpg);
+    background-image: url(../images/mainimage.jpg);
     position: absolute;
     width: 500px;
     height: 600px;
@@ -12,7 +18,7 @@
 
 .welcome-text{
     position: absolute;
-    top: 170px;
+    top: 100px;
     left: 100px;
     width: 100%;
     height: 300px;
@@ -21,26 +27,80 @@
     justify-content: space-between;
 }
 
-h1 {
+.landing-text1 {
 
-    font-weight: 500;
+    font-weight: 900;
     font-size: 70px;
     color: white;
 }
 
-h3{
+.landing-text2{
     font-family: 'Poppins';
     color: white;
     font-size: small;
     font-weight: 100;
-    margin-top: 15px;
+    margin-top: 20px;
 }
+
 .org-text{
     color: #FF8140;
 }
 
-
 .start-button{
+    border: none;
+    background-color: #FF8140;
+    padding: 12px 15px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-left: 20px;
+    width: fit-content;
+    margin-top: 20px;
+}
+
+.start-button:hover{
+    transform: scale(1.13);
+    cursor: pointer;
+}
+
+
+
+ul li{
+    list-style-type: none;
+    display: inline-block;
+    padding-right: 20px;
+    color: white;
+}
+
+.blue-text{
+    color: #2590BA;
+}
+
+.big-text{
+    font-weight: 500;
+    font-size: 45px;
+}
+
+.welcome-text2{
+    position: absolute;
+    top: 160%;
+    left: 50%;
+}
+
+.landing-text3 {
+    font-weight: 900;
+    font-size: 35px;
+}
+
+.landing-text4{
+    font-size: small;
+    font-weight: 130;
+    margin-top: 20px;
+}
+
+.share-button{
     border: none;
     background-color: #FF8140;
     padding: 12px 15px;
@@ -54,27 +114,38 @@ h3{
     margin-top: 25px;
 }
 
-.start-button:hover{
+.share-button:hover{
     transform: scale(1.13);
     cursor: pointer;
 }
 
-div li{
-    margin-top: 20px;
-}
-
-ul li{
-    list-style-type: none;
-    display: inline-block;
-    padding: 10px 20px;
+.navigate-button{
+    border: none;
+    background-color: #219090;
+    padding: 12px 15px;
+    border-radius: 10px;
     color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-left: 20px;
+    width: fit-content;
+    margin-top: 25px;
 }
 
-.blue-text{
-    color: #2590BA;
+.navigate-button:hover{
+    transform: scale(1.13);
+    cursor: pointer;
 }
 
-.big-text{
-    font-weight: 500;
-    font-size: 45px;
+.main-image2{
+    background-image: url(../images/landing-image2.jpg);
+    position: absolute;
+    width: 400px;
+    height:450px;
+    left: 7%;
+    top: 150%;
+    border-top-left-radius: 250px;
+    border-top-right-radius: 270px;
+    filter: drop-shadow(8px 4px 24px rgba(0, 0, 0, 0.25));
 }
