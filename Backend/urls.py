@@ -8,11 +8,13 @@ urlpatterns = [
     path('api/', include([
         path('announcements/', include([
             path('', views.announcements, name='announcements'),
+            path('me/', views.my_announcements, name='my_announcements'),
             path('<int:pk>/', views.announcement_detail, name='announcement_detail'),
             path('<int:pk>/favourite/', views.post_favourite, name='post_favourite'),
         ])),
         path('favourite/', views.my_favourite, name='my_favourite'),
         path('users/',views.UsersViewSet, name= 'users' ),
+        path('users/me/phone', views.update_phone_number, name='update_phone'),
         #path('announcements/',views.AnnouncementsViewSet, name= 'announcements' ),
     ])),
     

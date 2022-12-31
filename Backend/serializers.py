@@ -11,9 +11,9 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class AnnouncementSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Announcement
-        fields = ['PubDate','Title','Description','Price','Type','Category','Position','Owner_id','Status']
+        fields = ['id','PubDate','Title','Description','Price','Type','Category', 'Wilaya', 'Commune', 'Position','Owner_id','Status']
         
-        
+
 class FavouriteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Favourite

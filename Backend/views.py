@@ -1,16 +1,15 @@
-
-from json import JSONDecoder
 import json
-from pathlib import Path
-from django.shortcuts import render
-from .models import User, Announcement, Favourite
-from .serializers import FavouriteSerializer, UserSerializer, AnnouncementSerializer
-from django.http import HttpResponseRedirect, HttpRequest, HttpResponse
+import re
+from .models import User, Announcement, Favourite, Photo
+from .serializers import UserSerializer, AnnouncementSerializer
+from django.http import HttpResponseRedirect, HttpResponse
 import requests
 from django.shortcuts import get_list_or_404
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+import base64
+
 
 
 
@@ -73,7 +72,8 @@ def google_authenticate(request):
         #print('utilisateur existant')
         
     except User.DoesNotExist:
-        user = User(FirstName = l['name'],LastName=l['name'],PfP=l['picture'],PhoneNumber='0646536584',Email=l['email'])
+        print(l)
+        user = User(FirstName = l['family_name'],LastName=l['given_name'],PfP=l['picture'],Email=l['email'])
         user.assign_perm('user.add_announcement')
         user.assign_perm('user.view_announcement')
         user.save()
@@ -84,7 +84,25 @@ def google_authenticate(request):
     request.session['email'] =l['email'] 
     
     return HttpResponseRedirect('/admin/')
-    
+
+
+@api_view(['POST'])
+def update_phone_number(request):
+    print(request.data)
+    phone = request.data.get('phone')
+    if 'email' in request.session:
+        try:
+            pattern = re.compile(r'0\s*(5|6|7)(\s*\d){8}\s*')
+            if pattern.match(phone):
+                user = User.objects.get(pk=request.session.get('email'))
+                user.PhoneNumber = phone
+                user.save()
+                serializer = UserSerializer(user)
+                return Response(serializer.data)
+            return Response({ 'error': 'Invalid phone number' }, status=status.HTTP_400_BAD_REQUEST)
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
     
 def logout(request):
     request.session.flush()
@@ -100,7 +118,7 @@ def announcement_detail(request, pk):
         return Response(status = status.HTTP_404_NOT_FOUND)
     if request.method=='GET':
         serializer = AnnouncementSerializer(announcement)
-        return Response(serializer.data)
+        return Response({ 'data': serializer.data, 'images': get_photos(pk)})
     elif request.method=='DELETE':
         if 'email' in request.session:
             serializer = AnnouncementSerializer(announcement)
@@ -114,23 +132,57 @@ def announcement_detail(request, pk):
 @api_view(['GET', 'POST'])
 def announcements(request):
     try:
-        announcements = Announcement.objects.all()
+        announcements = Announcement.objects.all().order_by('-PubDate')
     except Announcement.DoesNotExist:
         return Response(status = status.HTTP_404_NOT_FOUND)
     if request.method=='GET':
-        serializer = AnnouncementSerializer(announcements, many= True)
-        return Response(serializer.data)
-    elif request.method=='POST':
-        serializer = AnnouncementSerializer(data= request.data)
+        if 'Type' in request.GET:
+            announcements = announcements.filter(Type= request.GET.get('Type', ''))
+        if 'Wilaya' in request.GET:
+            announcements = Announcement.objects.filter(Wilaya= request.GET.get('Wilaya', ''))
+        if 'Commune' in request.GET:
+            announcements = Announcement.objects.filter(Commune= request.GET.get('Commune', ''))
+        if 'Date_gte' in request.GET:
+            announcements = announcements.filter(PubDate__gte= request.GET.get('Date_gte', ''))
+        if 'Date_lte' in request.GET:
+            announcements = announcements.filter(PubDate__lte= request.GET.get('Date_lte', ''))
+        if 'Recherche' in request.GET:
+            print("jvoijkmokspokpkpkpok")
+            print(request.GET.get('Recherche',''))
+            announcements = search(request.GET.get('Recherche',''),announcements)
         
+        images = []
+        
+        for announcement in announcements:
+            images.append({ 'id': announcement.id, 'images': get_photos(announcement.id) })
+        
+        serializer = AnnouncementSerializer(announcements, many= True)
+        return Response({ 'data': serializer.data, 'images': images})
+    elif request.method=='POST':
+        data = json.loads(request.data.get('data'))
+        serializer = AnnouncementSerializer(data= data)
         if serializer.is_valid():
             if 'email' in request.session:
-                serializer.validated_data['Owner_id'] = request.session['email']
-                serializer.save()
-                return Response(serializer.data, status = status.HTTP_201_CREATED)
+                if len(request.FILES.getlist('image')) > 0:
+                    serializer.validated_data['Owner_id'] = request.session['email']
+                    serializer.save()
+                    add_photos(request, serializer)
+                    return Response(serializer.data, status = status.HTTP_201_CREATED)
+                return Response(status = status.HTTP_400_BAD_REQUEST)
             return Response(status = status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+  
+  
+@api_view(['GET'])
+def my_announcements(request):
+    try:
+        announcements = Announcement.objects.filter(Owner_id= request.session['email'])
+    except Announcement.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    serializer = AnnouncementSerializer(announcements, many= True)
+    return Response(serializer.data)
     
+  
 
 @api_view(['GET'])
 def post_favourite(request, pk):
@@ -162,3 +214,46 @@ def my_favourite(request):
     return Response(serializer.data)
 
     
+def add_photos(request, serializer):
+    announcement = Announcement.objects.get(pk=serializer.data.get('id'))
+    for image in request.FILES.getlist('image'):
+        photo = Photo(announcement= announcement, image= image)
+        photo.save()
+    
+
+def get_photos(pk):
+    images = Photo.objects.filter(announcement_id= pk)
+    path_images =[]
+    for image in images:
+        with open(image.image.path, "rb") as image_file:
+            image_data = base64.b64encode(image_file.read()).decode('utf-8')
+        #path_images.append('<img src="data:image/png;base64, {image_data}"/>'.format(image_data=image_data))
+        path_images.append(image_data)
+    return path_images
+
+
+
+#@api_view(['GET'])
+def search(text,announcements):
+    l = list( text.lower().split(" "))
+    while "" in l : l.remove("")
+    result = []
+    taille = len(l)
+    print(l)
+    #print(taille)
+    for announcement in announcements:
+        exist = False
+        Title = announcement.Title.lower().split(" ")
+        Description = announcement.Description.lower().split(" ")
+        i = 0
+        while i< taille and not exist :
+            mot = l[i]
+            if mot in Title or mot in Description:
+                exist = True
+                result.append(announcement)
+            #print(i)
+            i+=1         
+    #print(result) 
+    return result
+    
+
