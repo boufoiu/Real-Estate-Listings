@@ -215,6 +215,7 @@ font-size: medium;
     position: absolute;
     top: 347%;
     left: 10%;
+    width: 100%;
 }
 
 .contact-title1{
@@ -306,3 +307,13 @@ margin-top: 15px;
     font-size: 10px;
     padding: 3px;
 }
+
+.contact-logo{
+    background-image: url('../images/biglogo.png');
+    width: 250px;
+    height: 366px;
+    position: absolute;
+    right: 30%;
+    top: 0%;
+}
+

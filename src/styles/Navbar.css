@@ -54,7 +54,14 @@ nav ul li a:hover{
     color: #4DFFEA;
     transition: .3s;
 }
-.logo{
-    color: white;
+
+
+.logo-img{
+    width: 80px;
+    height: 100px;
+    background-image: url(../images/logo.png);
 }
 
+.logo-img:hover{
+    cursor: pointer;
+}

@@ -4,7 +4,7 @@ import "./styles/Navbar.css"
 export default function Navbar() {
   return (
       <nav>
-        <label href = '#' className = 'logo'>Darek</label>
+        <div className='logo-img'></div>
         <ul>
           <li> <a href = "#">Location</a></li>
           <li> <a href = "#">Vente</a></li>

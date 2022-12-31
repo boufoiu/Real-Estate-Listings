@@ -69,6 +69,7 @@ function App() {
         <button className="tlphn-btn">Telephone</button>
         <button className="email-btn">Email</button>
       </div>
+      <div className="contact-logo"></div>
     </div>
     
     <div className="about">
