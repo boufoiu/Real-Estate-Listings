@@ -1,0 +1,53 @@
+.popular-offers{
+    position: absolute;
+    top: 230%;
+    width: 85%;
+    left: 7%;
+}
+
+.title{
+    font-weight: 700;
+}
+
+.title2{
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.right-button{
+    position: absolute;
+    right: 0;
+    background-image: url(../images/right.png );
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border-width: 1px;
+    background-color: white;
+    transition: .4s;
+}
+
+.right-button:hover{
+    cursor: pointer;
+    transform: scale(1.13);
+}
+
+.left-button{
+    position: absolute;
+    right: 5%;
+    background-image: url(../images/left.png );
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border-width: 1px;
+    background-color: white;
+    transition: .4s;
+}
+
+.left-button:hover{
+    cursor: pointer;
+    transform: scale(1.13);
+}
+.offers-container{
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,17 @@
+.offer-container{
+    margin-top: 5px;
+    background-color: #F7FFFF;
+    text-align: center;
+    padding: 3px;
+    border-width: 1px;
+    border-color: black;
+    width: 210px;
+}
+
+.offer-image-container{
+    width: 200px;
+    height: 170px;
+    background-image: url('../images/house.jpg');
+    margin: 3px;
+    border-radius: 10px;
+}

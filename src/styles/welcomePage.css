@@ -67,7 +67,7 @@
 
 
 
-ul li{
+.stats{
     list-style-type: none;
     display: inline-block;
     padding-right: 20px;
@@ -148,4 +148,161 @@ ul li{
     border-top-left-radius: 250px;
     border-top-right-radius: 270px;
     filter: drop-shadow(8px 4px 24px rgba(0, 0, 0, 0.25));
+}
+
+.subscription{
+    position: absolute;
+    top: 300%;
+    background-color: #051018;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-right: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sub-text{
+}
+
+.sub-text1{
+    font-weight: 900;
+    font-size: 12;
+    color: white; 
+}
+
+.sub-text2{
+    font-weight: 200;
+    font-size: 8;
+    color: rgba(256, 256, 256, 0.7);
+}
+
+.sub-img{
+    width: 400px;
+    height: 200px;
+    background-image: url('../images/sub-img.jpg');
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    margin-top: 15px;
+}
+
+.sub-submit{
+    border: none;
+    background-color: #FF8140;
+    padding: 10px 10px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-left: 20px;
+    width: fit-content;
+    margin-top: 20px;
+}
+.sub-submit:hover{
+    transform: scale(1.13);
+}
+
+.email-input{
+    width: 40%;
+    height: 45px;
+    border-radius: 10px;
+    padding: 6px;
+font-size: medium;
+}
+
+.contact{
+    position: absolute;
+    top: 347%;
+    left: 10%;
+}
+
+.contact-title1{
+    font-weight: 700;
+}
+
+.contact-desc{
+margin-top: 15px;
+}
+
+.contact-btn-container{
+    display: flex;
+}
+
+.tlphn-btn{
+    border: none;
+    background-color: #1F637E;
+    padding: 10px 10px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-right: 40px;
+    margin-top: 20px;
+
+}
+
+.tlphn-btn:hover{
+    transform: scale(1.13);
+}
+
+.email-btn{
+    border: none;
+    background-color: #FF8140;
+    padding: 10px 10px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-right: 40px;
+    margin-top: 20px;
+    width: 100px;
+
+}
+
+.email-btn:hover{
+    transform: scale(1.13);
+}
+
+.about{
+    position: absolute;
+    top: 410%;
+    background-color: #040F17;
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+    padding-left: 45px;
+    padding-right: 320px;
+
+}
+
+.about-img{
+    background-image: url('../images/about.jpg');
+    width: 300px;
+    height: 250px;
+    border-top-left-radius: 100px;
+    border-bottom-left-radius: 100px;
+    position: absolute;
+    right: 0%;
+}
+
+.about-title{
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.rights{
+    position: absolute;
+    color: white;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    font-size: 10px;
+    padding: 3px;
 }
