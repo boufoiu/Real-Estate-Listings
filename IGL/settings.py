@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'Backend.apps.BackendConfig',    
+    'Backend.apps.BackendConfig',
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'IGL.wsgi.application'
+#WSGI_APPLICATION = 'IGL.wsgi.application'
 
 
 # Database
@@ -131,3 +132,11 @@ REST_FRAMEWORK = {
 }
 
 
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer",
+    }
+}
+
+ASGI_APPLICATION = "IGL.asgi.application" #routing.py will be created later

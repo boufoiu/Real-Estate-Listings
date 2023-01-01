@@ -1,6 +1,6 @@
 import json
 import re
-from .models import User, Announcement, Favourite, Photo
+from .models import User, Announcement, Favourite, Photo, Admin
 from .serializers import UserSerializer, AnnouncementSerializer
 from django.http import HttpResponseRedirect, HttpResponse
 import requests
@@ -9,7 +9,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import base64
-
+from django.shortcuts import render
+from django.template import RequestContext
 
 
 
@@ -74,8 +75,6 @@ def google_authenticate(request):
     except User.DoesNotExist:
         print(l)
         user = User(FirstName = l['family_name'],LastName=l['given_name'],PfP=l['picture'],Email=l['email'])
-        user.assign_perm('user.add_announcement')
-        user.assign_perm('user.view_announcement')
         user.save()
     
     if request.session.get('email'):
@@ -131,6 +130,7 @@ def announcement_detail(request, pk):
 
 @api_view(['GET', 'POST'])
 def announcements(request):
+    print('foo')
     try:
         announcements = Announcement.objects.all().order_by('-PubDate')
     except Announcement.DoesNotExist:
@@ -159,8 +159,12 @@ def announcements(request):
         serializer = AnnouncementSerializer(announcements, many= True)
         return Response({ 'data': serializer.data, 'images': images})
     elif request.method=='POST':
-        data = json.loads(request.data.get('data'))
+        try:
+            data = json.loads(request.data.get('data'))
+        except json.JSONDecodeError:
+            return Response({ 'error': 'invalid json'}, status = status.HTTP_400_BAD_REQUEST)
         serializer = AnnouncementSerializer(data= data)
+        print(serializer)
         if serializer.is_valid():
             if 'email' in request.session:
                 if len(request.FILES.getlist('image')) > 0:
@@ -184,8 +188,9 @@ def my_announcements(request):
     
   
 
-@api_view(['GET'])
+@api_view(['POST'])
 def post_favourite(request, pk):
+    print('foo')
     try:
         announcement = Announcement.objects.get(pk = pk)        
     except Announcement.DoesNotExist:
@@ -233,7 +238,7 @@ def get_photos(pk):
 
 
 
-#@api_view(['GET'])
+
 def search(text,announcements):
     l = list( text.lower().split(" "))
     while "" in l : l.remove("")
@@ -253,7 +258,23 @@ def search(text,announcements):
                 result.append(announcement)
             #print(i)
             i+=1         
-    #print(result) 
     return result
     
+    
+def chat_box(request, chat_box_name):
+    # we will get the chatbox name from the url
+    return render(request, "chatbox.html", {"chat_box_name": chat_box_name})
 
+
+@api_view(['GET'])
+def add_admin(request,pk):
+    try:
+        Admin.objects.get(Me = User.objects.get(pk = request.session['email']))
+    except Admin.DoesNotExist:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+    try:
+        Admin.objects.get(Me = User.objects.get(pk = pk))
+    except Admin.DoesNotExist:
+        admin = Admin( Me= User.objects.get(pk= pk))
+        admin.save()
+    return HttpResponseRedirect('/api/users/')
