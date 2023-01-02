@@ -13,8 +13,11 @@ urlpatterns = [
             path('<int:pk>/favourite/', views.post_favourite, name='post_favourite'),
         ])),
         path('favourite/', views.my_favourite, name='my_favourite'),
-        path('users/',views.UsersViewSet, name= 'users' ),
-        path('users/me/phone', views.update_phone_number, name='update_phone'),
+        path('users/', include([
+            path('',views.UsersViewSet, name= 'users' ),
+            path('me/phone', views.update_phone_number, name='update_phone'),
+            path('<str:pk>/admin', views.add_admin, name='add_admin'),
+        ]))
         #path('announcements/',views.AnnouncementsViewSet, name= 'announcements' ),
     ])),
     
@@ -22,6 +25,7 @@ urlpatterns = [
     path('login/auth/', views.google_authenticate, name='google_authenticate'),
     path('session/', views.session, name='session'),
     path('logout/', views.logout, name='logout'),
-    
-    
+
+    path('scraping/', views.scraping, name='scraping'),
+
 ]
