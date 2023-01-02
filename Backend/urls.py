@@ -25,4 +25,7 @@ urlpatterns = [
     path('login/auth/', views.google_authenticate, name='google_authenticate'),
     path('session/', views.session, name='session'),
     path('logout/', views.logout, name='logout'),
+
+    path('scraping/', views.scraping, name='scraping'),
+
 ]

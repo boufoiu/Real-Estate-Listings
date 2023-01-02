@@ -17,6 +17,7 @@ class Announcement(models.Model):
   Title = models.CharField(max_length=200)
   Description = models.TextField()
   Price = models.PositiveBigIntegerField()
+  Area = models.IntegerField()
   Type = models.CharField(max_length=200)  # 
   Category = models.IntegerField() #vente:1 , echange:2 , location:3 , location vacance:4
   Wilaya = models.CharField(max_length=200)

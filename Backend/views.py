@@ -13,6 +13,25 @@ from django.shortcuts import render
 from django.template import RequestContext
 
 
+from Backend.models import Announcement
+from Backend.webscraping.webscraping.spiders.announcements import AnnouncementSpider
+
+
+from twisted.internet import reactor
+from scrapy.crawler import CrawlerRunner
+from scrapy.utils.log import configure_logging
+
+
+def scraping(request):
+    
+  configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
+  runner = CrawlerRunner()
+
+  d = runner.crawl(AnnouncementSpider)
+  d.addBoth(lambda _: reactor.stop())
+  reactor.run() # the script will block here until the crawling is finished
+  
+  return HttpResponse("Web Scraping completed")
 
 def session(request):
     return HttpResponse(request.session.get('email'))
