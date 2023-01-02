@@ -1,6 +1,10 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
+from django.db.models.signals import post_delete
+from utils import file_cleanup
+
+
 
 class User(models.Model):
   FirstName = models.CharField(max_length=100)
@@ -40,6 +44,10 @@ class Favourite(models.Model):
 class Photo(models.Model):
   announcement = models.ForeignKey(Announcement, on_delete=models.CASCADE)
   image = models.ImageField(upload_to='images')
+  
+post_delete.connect(
+  file_cleanup, sender=Photo, dispatch_uid="photo.image.file_cleanup"
+)
   
   
   
