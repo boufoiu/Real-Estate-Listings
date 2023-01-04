@@ -12,7 +12,7 @@ export default function SearchBar() {
       return <FilterSearch name = {filter.name} options = {filter.options}></FilterSearch> 
     })}
     <div className='search-button'>
-      <div className='search-icon'></div>
+      <i class="fa-solid fa-magnifying-glass"></i>
     </div>
     </div>
   )

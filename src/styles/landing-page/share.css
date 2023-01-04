@@ -1,0 +1,71 @@
+.content2{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 4vw;
+}
+
+.welcome-text2{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 40%;
+}
+
+.landing-text3 {
+    font-weight: 900;
+    font-size: 3vw;
+}
+
+.landing-text4{
+    font-size: 1vw;
+    font-weight: 130;
+    width: 70%;
+}
+
+.share-button{
+    border: none;
+    background-color: #FF8140;
+    padding: 12px 15px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-left: 20px;
+    width: fit-content;
+    margin-top: 25px;
+}
+
+.share-button:hover{
+    transform: scale(1.13);
+    cursor: pointer;
+}
+
+.navigate-button{
+    border: none;
+    background-color: #219090;
+    padding: 12px 15px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    transition: .4s;
+    margin-left: 20px;
+    width: fit-content;
+    margin-top: 25px;
+}
+
+.navigate-button:hover{
+    transform: scale(1.13);
+    cursor: pointer;
+}
+
+.main-image2{
+    width: 40vw;
+    max-width: 400px;
+    max-height: 400px;
+    border-top-left-radius: 250px;
+    border-top-right-radius: 270px;
+    filter: drop-shadow(8px 4px 24px rgba(0, 0, 0, 0.35));
+}
+

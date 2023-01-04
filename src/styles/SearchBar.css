@@ -1,15 +1,14 @@
 .search-bar{
-    position: absolute;
+    margin-top: 4vw;
+    position: relative;
     width: 80%;
     height: 100px;
     background-color: #040F17;
-    top: 100%;
-    margin: 10%;
     border-radius: 22px;
     display: flex;
-    justify-content: space-between;
-    padding-left: 15%;
-    padding-right: 15%;
+    justify-content: space-around;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 select{
@@ -31,22 +30,15 @@ select{
 
 .search-button{
     position: absolute;
-    right: 7%;
-    bottom: 20%;
+    right: 1%;
+    bottom: 10%;
+    width: 3.2vw;
     background-color: #FF8140;
-    width: 40px;
-    height: 30px;
+    padding: 3px;
     border-radius: 10px;
-}
-
-.search-icon{
-    background-image: url(../images/search.png);
-    width: 23px;
-    height: 23px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    color: white;
+    font-size: 1.6vw;
+    text-align: center;
 }
 
 .search-button:hover{

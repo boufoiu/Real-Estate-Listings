@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import Offer from './Offer'
-import './styles/popular-offers.css'
+import './styles/landing-page/popular-offers.css'
 export default function () {
 const[currOfferType, setCurrOfferType] = useState('')
 const[popularOffers, setPopularOffers] = useState({

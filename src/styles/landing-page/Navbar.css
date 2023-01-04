@@ -1,29 +1,29 @@
+.full-nav{
+    /* background-color: #040F17; */
+}
 
-
-
-
-nav{
+.nav-list{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 10px;
-    padding-left: 10%;
-    padding-right: 5%;
+    margin-left: 30vw;
+    width: 40vw;
 }
 
-nav ul li{
+.nav-list li{
     list-style-type: none;
     display: inline-block;
-    padding: 10px 20px;
+    padding-top: 3.3vw;
+    padding-bottom: 3vw;
 }
 
-nav ul li a{
+.nav-list li a{
     text-decoration: none;
     font-weight: bold;
     color: white;
 }
 
-nav ul li a:hover{
+.nav-list li a:hover{
     color: #4DFFEA;
     transition: .3s;
 }
@@ -49,19 +49,15 @@ nav ul li a:hover{
 
 .sign-up{
     color: white;
+    font-weight: bold;
 }
 .sign-up:hover{
     color: #4DFFEA;
     transition: .3s;
 }
 
-
-.logo-img{
-    width: 80px;
-    height: 100px;
-    background-image: url(../images/logo.png);
-}
-
-.logo-img:hover{
-    cursor: pointer;
+.log-in{
+    position: absolute;
+    right: 2vw;
+    top: 2.5vw;
 }
