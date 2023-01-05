@@ -29,10 +29,29 @@
     display: flex;
     justify-content: space-around;
 }
-.inputs-row input{
+.sign-up-input-ctn{
     width: 30%;
+    position: relative;
+}
+.sign-up-input-ctn i{
+    position: absolute;    
+    right: 4%;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+input[type=checkbox]
+{
+  transform: scale(1.6);
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.inputs-row input{
+    width: 100%;
     height: 50px;
     border-radius: 10px;
     border-width: 2px;
     padding: 20px;
+    font-size: medium;
 }

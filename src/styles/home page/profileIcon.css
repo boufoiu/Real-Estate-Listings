@@ -1,0 +1,13 @@
+.profile-icon{
+    position: absolute;
+    right: 3%;
+    font-size: larger;
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+.profile-icon img{
+    width: 3vw;
+    border-radius: 50px;
+}

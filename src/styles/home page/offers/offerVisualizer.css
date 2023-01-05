@@ -1,0 +1,30 @@
+
+.offers-visualizer-ctn-home{
+    margin-left: 300px;
+    position: relative;
+    margin-top: 50px;
+}
+
+.offers-visualizer{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 80%;
+    column-gap: 5%;
+    margin-top: 30px;
+    row-gap: 30px;
+}
+
+.offers-visualizer-title{
+    font-size: 25px;
+    font-weight:900;
+    margin-left: 10%;
+}
+
+@media (max-width: 1600px){
+    .offers-visualizer-ctn-home{
+        margin-left: 0;
+    }  
+}

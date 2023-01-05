@@ -18,7 +18,7 @@ export default function Connect() {
                 <div className='sign-in-input-ctn'><i class="fa-regular fa-envelope"></i><input type={'email'} className={'sign-in-input'} placeholder={'Email'}/></div>
                 <div className='sign-in-input-ctn'><i class="fa-solid fa-eye"></i><input type={'password'} className={'sign-in-input'} placeholder={'Mot de pass'}/></div>
                 <div>Mot de pass oublie? <a href='#'>Reinitialisez votre mot de passe</a></div>
-                <button className='connect'>Connexion</button>
+                <Link to={'/home'}><button className='connect'>Connexion</button></Link>
             </div>
             <img src={landingImage1} className={'connect-image'}></img>
         </div>

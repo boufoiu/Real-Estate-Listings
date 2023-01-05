@@ -1,16 +1,14 @@
+import NonConnected from "./Components/Landing page/NonConnected";
 import {Routes, Route} from "react-router-dom"
-import Connect from "./Components/Forms/Connect";
-import CreateAccount from "./Components/Forms/CreateAccount";
-import LandingPage from "./Components/Landing page/LandingPage";
 import "./styles//App.css"
+import HomePage from "./Components/Home page/HomePage";
 
 function App() {
 
    return (
     <Routes>
-      <Route path={'/'} element = {<LandingPage/>}/>
-      <Route path={'/sign-in'} element = {<CreateAccount/>}/>
-      <Route path={'/connect'} element = {<Connect/>}/>
+      <Route path={"/*"} element={<NonConnected/>}/>
+      <Route path={"/home/*"} element={<HomePage/>}/>
     </Routes>
   );
 }

@@ -14,15 +14,15 @@ export default function CreateAccount() {
               Inscrivez-vous sur le premier site d'annonce immobilière en Algérie.</p>
           </div>
               <div className='inputs-row'>
-                <input type={'text'} placeholder={'Votre nom complet'}></input>
-                <input type={'email'} placeholder={'Votre adresse email'}></input>
+                <div className='sign-up-input-ctn'><i class="fa-regular fa-user"></i><input type={'text'} placeholder={'Votre nom complet'}></input></div>
+                <div className='sign-up-input-ctn'><i class="fa-regular fa-envelope"></i><input type={'email'} className={'sign-up-input'} placeholder={'Votre adresse mail'}/></div>
               </div>
               <div className='inputs-row'>
-                <input type={'number'} placeholder='Votre numero de telephone'></input>
-                <input type={'password'} placeholder={'Mot de passe'}></input>
+                <div className='sign-up-input-ctn'><i class="fa-solid fa-phone"></i><input type={'number'} placeholder='Votre numero de telephone'></input></div>
+                <div className='sign-up-input-ctn'><i class="fa-solid fa-eye"></i><input type={'password'} placeholder={'Mot de passe'}></input></div>
               </div>
-          <div class='terms'><input type={'checkbox'}></input> J'accepte les <a href='#'>termes et conditions</a> d'utilisation<a/></div>
-              <button class='connect'>Submit</button>
+          <div class='terms'><input id='check2' type={'checkbox'}></input> J'accepte les <a href='#'>termes et conditions</a> d'utilisation<a/></div>
+              <Link to= '/home'><button class='connect'>S'inscrire</button></Link>
       </div>
   </div>
   )
