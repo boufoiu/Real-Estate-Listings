@@ -2,6 +2,7 @@ import React from 'react'
 import '../../../styles/home page/offers/offer.css'
 import offerImage from '../../../images/house.jpg'
 import sellerImage from '../../../images/seller.png'
+import { Link } from 'react-router-dom'
 
 export default function (props) {
   const {
@@ -19,7 +20,7 @@ export default function (props) {
         <div className='offer-options'>
           <div><i class="fa-solid fa-heart"></i></div>
           <div><i class="fa-solid fa-comment-dots"></i></div>
-          <button>Details</button>
+          <Link to = '/home/1'><button>Details</button></Link>
         </div>
     </div>
   )

@@ -8,6 +8,7 @@ import Profile from './profile/Profile'
 import Favorites from './favorites/Favorites'
 import Help from './help/Help'
 import ProfileIcon from './ProfileIcon'
+import OfferDetails from './Offers/OfferDetails'
 export default function HomePage() {
   return (
     <>
@@ -17,6 +18,7 @@ export default function HomePage() {
         <Route element={<Search place = {'home'}/>}>
           <Route path='/' element={<Main/>}/>
           <Route path='/favorites' element={<Favorites/>}/>
+          <Route path='/:id' element={<OfferDetails/>}/>
         </Route>
         <Route path='/messages' element={<Messages/>}/>
         <Route path='/profile' element={<Profile/>}/>

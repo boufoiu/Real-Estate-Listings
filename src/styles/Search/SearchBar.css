@@ -11,9 +11,9 @@
 }
 
 .search-bar-home input{
-    width: 40%;
+    width: 30vw;
     height: 55px;
-    font-size: medium;
+    font-size: 1.2vw;
     border-radius: 12px;
     padding-left: 30px;
 }
@@ -32,6 +32,22 @@
     height: 45px;
 }
 .search-bar-button:hover{
+    cursor: pointer;
+    transform: scale(1.13);
+}
+
+.filter-check-button{
+    background-color: #FF8140;
+    border-radius: 5px;
+    padding: 7px 20px;
+    color: white;
+    border: none;
+    transition: .4s;
+    margin-left: 20px;
+    font-size: 1.1vw;
+}
+
+.filter-check-button:hover{
     cursor: pointer;
     transform: scale(1.13);
 }

@@ -2,11 +2,11 @@ body{
 }
 
 
-label{
+/* label{
     color: white;
     position: absolute;
     right: 0;
-}
+} */
 
 #check{
     position: fixed;
@@ -14,18 +14,17 @@ label{
     z-index: 3;
 }
 
-label{
+/* label{
     position: absolute;
     top: 30px;
     right: 30px;
-    display: none;
     font-size: 30px;
-}
+} */
 
-label:hover{
+/* label:hover{
     color: #FF8140;
     cursor: pointer;
-}
+} */
 .hello{
     display: none;
 }
@@ -56,10 +55,10 @@ label:hover{
         width: 80%;
         height: auto;
     }
-    label{
+    /* label{
         z-index: 3;
         display: inline-block;
-    }
+    } */
 
     .content2{
         flex-direction: column;

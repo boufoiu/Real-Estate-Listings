@@ -5,6 +5,14 @@
     margin-top: 50px;
 }
 
+.offers-visualizer-ctn-favorites{
+    margin-left: 300px;
+    position: relative;
+    margin-top: 50px;
+}
+
+
+
 .offers-visualizer{
     display: flex;
     flex-wrap: wrap;
@@ -12,8 +20,8 @@
     left: 50%;
     transform: translate(-50%, 0%);
     width: 80%;
-    column-gap: 5%;
     margin-top: 30px;
+    justify-content: space-around;
     row-gap: 30px;
 }
 
