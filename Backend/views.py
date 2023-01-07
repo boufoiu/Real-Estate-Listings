@@ -18,16 +18,18 @@ from scrapy.utils.log import configure_logging
 
 @api_view(['GET'])
 def scraping(request):
-    try:
-        Admin.objects.get(Me = User.objects.get(pk = request.session['email']))
-    except Admin.DoesNotExist:
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
-    configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
-    runner = CrawlerRunner()
-    d = runner.crawl(AnnouncementSpider)
-    d.addBoth(lambda _: reactor.stop())
-    reactor.run() # the script will block here until the crawling is finished
-    return Response(status=status.HTTP_200_OK)
+    if 'email' in request.session:
+        try:
+            Admin.objects.get(Me = User.objects.get(pk = request.session['email']))
+        except Admin.DoesNotExist:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        configure_logging({'LOG_FORMAT': '%(levelname)s: %(message)s'})
+        runner = CrawlerRunner()
+        d = runner.crawl(AnnouncementSpider)
+        d.addBoth(lambda _: reactor.stop())
+        reactor.run() # the script will block here until the crawling is finished
+        return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 def session(request):
     return HttpResponse(request.session.get('email'))
