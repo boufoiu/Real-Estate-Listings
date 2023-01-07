@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Announcement, Favourite, Photo, Admin, Channel, Message
+from .models import *
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['FirstName','Email']
@@ -22,6 +22,6 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Announcement,AnnouncementAdmin)
 admin.site.register(Favourite, FavouriteAdmin)
 admin.site.register(Photo, PhotoAdmin)
-admin.site.register(Admin,AdminAdmin)
-admin.site.register(Channel)
+admin.site.register(Admin)
 admin.site.register(Message)
+admin.site.register(Response)

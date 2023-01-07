@@ -9,12 +9,18 @@ urlpatterns = [
         path('announcements/', include([
             path('', views.announcements, name='announcements'),
             path('me/', views.my_announcements, name='my_announcements'),
-            path('<int:pk>/', views.announcement_detail, name='announcement_detail'),
-            path('<int:pk>/favourite/', views.post_favourite, name='post_favourite'),
+            path('<int:pk>/',include([
+                path('', views.announcement_detail, name='announcement_detail'),
+                path('favourite/', views.post_favourite, name='post_favourite'),
+                path('offer/', views.send_offer, name='send_offer'),
+            ])),
         ])),
+        path("offer/<int:pk>/response/", views.response_offer, name="response_offer"),
+        path("responses/", views.get_responses, name="response_offer"),
         path('favourite/', views.my_favourite, name='my_favourite'),
         path('users/', include([
             path('',views.UsersViewSet, name= 'users' ),
+            path('offers/', views.get_offers, name='get_offer'),
             path('me/phone', views.update_phone_number, name='update_phone'),
             path('<str:pk>/admin', views.add_admin, name='add_admin'),
         ]))

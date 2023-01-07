@@ -50,14 +50,13 @@ post_delete.connect(
 )
   
   
-  
-class Channel(models.Model):
-  user1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name= 'User1')
-  user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='User2')
-  
-  
 class Message(models.Model):
-  sender = models.ForeignKey(User, on_delete=models.CASCADE)
+  sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+  receiver = models.ForeignKey(User, on_delete= models.CASCADE, related_name='receiver')
+  announcement= models.ForeignKey(Announcement, on_delete= models.CASCADE)
   content= models.TextField()
-  chanel = models.ForeignKey(Channel, on_delete=models.CASCADE)
-  time = models.DateTimeField()
+  
+class Response(models.Model):
+  owner = models.ForeignKey(User, on_delete=models.CASCADE)
+  offer= models.ForeignKey(Message, on_delete= models.CASCADE)
+  content= models.TextField()
