@@ -1,6 +1,6 @@
 import json
 import re
-from .models import Announcement, User, Admin, Favourite, Message, Photo, Response as OfferResponse
+from .models import Announcement, User, Admin, Favourite, Offer, Photo, Response as OfferResponse
 from .serializers import *
 from django.http import HttpResponseRedirect, HttpResponse
 import requests
@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import base64
 from django.shortcuts import render
-from Backend.models import Announcement, Message
+from Backend.models import Announcement, Offer
 from Backend.webscraping.webscraping.spiders.announcements import AnnouncementSpider
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -302,7 +302,7 @@ def send_offer(request,pk):
         receiver = announcement.Owner_id
         if 'content' in request.data:
             content = request.data.get('content')
-            message = Message(sender= User.objects.get(pk=sender), receiver= User.objects.get(pk=receiver), announcement= announcement, content= content)
+            message = Offer(sender= User.objects.get(pk=sender), receiver= User.objects.get(pk=receiver), announcement= announcement, content= content)
             message.save()
             return Response(status= status.HTTP_201_CREATED)
         return Response(status = status.HTTP_400_BAD_REQUEST)
@@ -312,7 +312,7 @@ def send_offer(request,pk):
 @api_view(['GET'])
 def get_offers(request):
     if 'email' in request.session:
-        offers = Message.objects.filter(receiver = request.session['email'])
+        offers = Offer.objects.filter(receiver = request.session['email'])
         serializer = OfferSerializer(offers,many = True)
         return Response(serializer.data)
     return Response(status = status.HTTP_401_UNAUTHORIZED)
@@ -324,8 +324,8 @@ def response_offer(request, pk):
         email = request.session.get('email')
         owner = User.objects.get(pk = email)
         try:
-            offer = Message.objects.get(pk = pk)
-        except Message.DoesNotExist:
+            offer = Offer.objects.get(pk = pk)
+        except Offer.DoesNotExist:
             return Response(status = status.HTTP_400_BAD_REQUEST)
         if email == offer.receiver.Email:
             if 'content' in request.data:
@@ -340,7 +340,7 @@ def response_offer(request, pk):
 @api_view(['GET'])
 def get_responses(request):
     if 'email' in request.session:
-        offers = Message.objects.filter(sender_id = request.session.get('email'))
+        offers = Offer.objects.filter(sender_id = request.session.get('email'))
         responses = []
         for offer in offers:
             try:

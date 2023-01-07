@@ -22,7 +22,7 @@ class FavouriteSerializer(serializers.HyperlinkedModelSerializer):
        
 class OfferSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Message
+        model = Offer
         fields = ['id','sender_id','receiver_id','announcement_id','content']
         
         
