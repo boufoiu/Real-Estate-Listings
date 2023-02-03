@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Offer from '../Offers/Offer'
 import OffersVisualizer from '../Offers/OffersVisualizer'
 import Search from '../Search/Search'
@@ -55,6 +56,7 @@ export default function Main() {
   return (
     <div>
       <OffersVisualizer offers = {latestOffers} place = {'home'} title={'Offres plus recentes:'}/>
+      <Link to='/home/create-offer'><div className='new-offer' ><i class="fa-solid fa-plus"></i></div></Link>
     </div>
   )
 }

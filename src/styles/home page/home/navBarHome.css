@@ -51,6 +51,23 @@
     top: 20%;
 }
 
+.new-offer{
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    background-color: #F48501;
+    color: white;
+    font-size: 40px;
+    padding: 10px;
+    border-radius: 50px;
+    transition: .4s;
+}
+
+.new-offer:hover{
+cursor: pointer;
+    transform: scale(1.13);
+}
+
 @media (max-width: 1600px){
     .nav-bar-home{
         display: none;

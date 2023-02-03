@@ -9,6 +9,7 @@ import Favorites from './favorites/Favorites'
 import Help from './help/Help'
 import ProfileIcon from './ProfileIcon'
 import OfferDetails from './Offers/OfferDetails'
+import CreateOffer from './Offers/CreateOffer'
 export default function HomePage() {
   return (
     <>
@@ -18,6 +19,7 @@ export default function HomePage() {
         <Route element={<Search place = {'home'}/>}>
           <Route path='/' element={<Main/>}/>
           <Route path='/favorites' element={<Favorites/>}/>
+          <Route path='/create-offer' element={<CreateOffer/>}/>
           <Route path='/:id' element={<OfferDetails/>}/>
         </Route>
         <Route path='/messages' element={<Messages/>}/>

@@ -6,7 +6,19 @@
 .filter-bar-home{
     display: none;
 }
-select{
+
+.filter-bar-home select{
+    color: white;
+    background-color: rgba(256, 256, 256, 0.2);
+    border-color: white;
+    border-radius: 12px;
+    font-size: 1.2vw; 
+    padding: 4px 7px;
+    position: relative;
+    height: 3vw;
+}
+
+.filter-bar-landing select{
     color: white;
     background-color: rgba(256, 256, 256, 0.2);
     border-color: white;
