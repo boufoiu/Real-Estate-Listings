@@ -31,45 +31,8 @@ def scraping(request):
         return Response(status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-@api_view(['GET'])
 def session(request):
-    if 'email' in request.session:
-        email = request.session.get('email')
-        try:
-            user = User.objects.get(Email = email )        
-        except User.DoesNotExist:
-            return Response(status = status.HTTP_404_NOT_FOUND)
-        serializer = UserSerializer(user)
-        print(serializer.data)
-        return Response(serializer.data)
-    return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-@api_view(['GET'])
-def user(request, pk):
-    try:
-        user = User.objects.get(Email = pk )        
-    except User.DoesNotExist:
-        return Response(status = status.HTTP_404_NOT_FOUND)
-    serializer = UserSerializer(user)
-    return Response(serializer.data)
-
-@api_view(['GET', 'DELETE']) # Add modifier une annonce
-def announcement_detail(request, pk):
-    
-    try:
-        announcement = Announcement.objects.get(pk = pk)
-    except Announcement.DoesNotExist:
-        return Response(status = status.HTTP_404_NOT_FOUND)
-    if request.method=='GET':
-        serializer = AnnouncementSerializer(announcement)
-        return Response({ 'data': serializer.data, 'images': get_photos(pk)})
-    elif request.method=='DELETE':
-        if 'email' in request.session:
-            serializer = AnnouncementSerializer(announcement)
-            if announcement.Owner_id == request.session['email']:
-                announcement.delete()
-                return Response(status = status.HTTP_204_NO_CONTENT)
-            return Response(status= status.HTTP_401_UNAUTHORIZED)
+    return HttpResponse(request.session.get('email'))
 
 
 @api_view(['GET'])
@@ -83,8 +46,9 @@ def AnnouncementsViewSet(request):
     queryset = Announcement.objects.all()
     serializer = AnnouncementSerializer(queryset, many= True)
     return Response(serializer.data)
+    
 
-@api_view(['GET'])
+
 def google_login(request):
     token_request_uri = "https://accounts.google.com/o/oauth2/auth"
     response_type = "code"
@@ -206,13 +170,11 @@ def announcements(request):
         
         images = []
         
-        # for announcement in announcements:
-        #     images.append({ 'id': announcement.id, 'images': get_photos(announcement.id) })
+        for announcement in announcements:
+            images.append({ 'id': announcement.id, 'images': get_photos(announcement.id) })
         
         serializer = AnnouncementSerializer(announcements, many= True)
-        # return Response({ 'data': serializer.data, 'images': images})
-        return Response(serializer.data)
-
+        return Response({ 'data': serializer.data, 'images': images})
     elif request.method=='POST':
         try:
             data = json.loads(request.data.get('data'))
@@ -234,15 +196,13 @@ def announcements(request):
   
 @api_view(['GET'])
 def my_announcements(request):
-    if 'email' in request.session:
-        email = request.session.get('email')
-        try:
-            announcements = Announcement.objects.filter(Owner_id= email)
-        except Announcement.DoesNotExist:
-            return Response(status = status.HTTP_404_NOT_FOUND)
-        serializer = AnnouncementSerializer(announcements, many= True)
-        return Response(serializer.data)
-    return Response(status=status.HTTP_401_UNAUTHORIZED)    
+    try:
+        announcements = Announcement.objects.filter(Owner_id= request.session['email'])
+    except Announcement.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    serializer = AnnouncementSerializer(announcements, many= True)
+    return Response(serializer.data)
+    
   
 
 @api_view(['POST'])
@@ -292,18 +252,6 @@ def get_photos(pk):
         #path_images.append('<img src="data:image/png;base64, {image_data}"/>'.format(image_data=image_data))
         path_images.append(image_data)
     return path_images
-
-@api_view(['GET'])
-def get_all_img(request,pk):
-    images = get_photos(pk)
-    return Response(images)
-@api_view(['GET'])
-def get_thumb(request,pk):
-    images = Photo.objects.filter(announcement_id= pk)
-    image = images[0]
-    with open(image.image.path, "rb") as image_file:
-        image_data = base64.b64encode(image_file.read()).decode('utf-8')
-    return Response(image_data)
 
 
 
