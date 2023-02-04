@@ -206,11 +206,13 @@ def announcements(request):
         
         images = []
         
-        for announcement in announcements:
-            images.append({ 'id': announcement.id, 'images': get_photos(announcement.id) })
+        # for announcement in announcements:
+        #     images.append({ 'id': announcement.id, 'images': get_photos(announcement.id) })
         
         serializer = AnnouncementSerializer(announcements, many= True)
-        return Response({ 'data': serializer.data, 'images': images})
+        # return Response({ 'data': serializer.data, 'images': images})
+        return Response(serializer.data)
+
     elif request.method=='POST':
         try:
             data = json.loads(request.data.get('data'))
@@ -290,6 +292,18 @@ def get_photos(pk):
         #path_images.append('<img src="data:image/png;base64, {image_data}"/>'.format(image_data=image_data))
         path_images.append(image_data)
     return path_images
+
+@api_view(['GET'])
+def get_all_img(request,pk):
+    images = get_photos(pk)
+    return Response(images)
+@api_view(['GET'])
+def get_thumb(request,pk):
+    images = Photo.objects.filter(announcement_id= pk)
+    image = images[0]
+    with open(image.image.path, "rb") as image_file:
+        image_data = base64.b64encode(image_file.read()).decode('utf-8')
+    return Response(image_data)
 
 
 

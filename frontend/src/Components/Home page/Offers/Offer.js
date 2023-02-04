@@ -8,6 +8,8 @@ import axios from "axios";
 
 export default function (props) {
   const [offerProps, setOfferProps] = useState({});
+  const [thumb, setThumb] = useState("");
+
   const {
     id,
     PubDate,
@@ -23,22 +25,41 @@ export default function (props) {
     Owner,
   } = props.offer;
   const [seller, setSeller] = useState({});
+  const [src, setSrc] = useState(null);
+
   useEffect(() => {
     axios
-      .get("/api/announcements/${a_id}")
+      .get("/api/announcements/" + id + "/")
       .then((res) => setOfferProps(res.data))
+      .catch((err) => console.log(err));
+    axios
+      .get("/api/announcements/" + id + "/get_thumb/")
+      .then((res) => {
+        console.log('Image: ######################################"');
+
+        console.log(res.data);
+        setThumb(res.data);
+        const imageUrl = "data:image/jpg;base64," + thumb;
+        setSrc(imageUrl);
+      })
       .catch((err) => console.log(err));
 
     axios
-      .get("/api/user/${offerProps.Owner}")
+      .get("/api/user/" + Owner + "/")
       .then((res) => setSeller(res.data))
       .catch((err) => console.log(err));
   }, []);
 
   return (
     <div className="offer-container">
-      <img src={seller.PfP} className="offer-image"></img>
-      <img src={seller} className="seller-image"></img>
+      <img
+        // src={offerImage}
+        src={src}
+        className="offer-image"
+      ></img>
+      {/* <img src={seller.PfP} className="seller-image"></img> */}
+      <img src={sellerImage} className="seller-image"></img>
+
       <div className="offer-price">
         {" "}
         <span className="org-text">DA </span>

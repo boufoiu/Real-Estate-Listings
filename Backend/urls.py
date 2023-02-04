@@ -12,6 +12,8 @@ urlpatterns = [
             path('me/', views.my_announcements, name='my_announcements'),
             path('<int:pk>/',include([
                 path('', views.announcement_detail, name='announcement_detail'),
+                path('get_thumb/', views.get_thumb, name='get_thumb'),
+                path('get_all_img/', views.get_all_img, name='get_all_img'),
                 path('favourite/', views.post_favourite, name='post_favourite'),
                 path('offer/', views.send_offer, name='send_offer'),
             ])),

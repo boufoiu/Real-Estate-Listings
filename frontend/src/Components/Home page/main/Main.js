@@ -12,8 +12,7 @@ export default function Main() {
     axios
       .get("/api/announcements/")
       .then((res) => {
-        console.log(res.data.images);
-        setLatestOffers(res.data.data);
+        setLatestOffers(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
