@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     #path('', include(router.urls)),
     path('api/', include([
-        path("api/user/<int:pk>/", views.user, name="user"),
+        path("user/<str:pk>/", views.user, name="user"),
         path('announcements/', include([
             path('', views.announcements, name='announcements'),
             path('me/', views.my_announcements, name='my_announcements'),
