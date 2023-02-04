@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Backend.apps.BackendConfig',
+
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,7 +52,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware'
+    'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'IGL.urls'
@@ -140,3 +144,8 @@ CHANNEL_LAYERS = {
 }
 
 ASGI_APPLICATION = "IGL.asgi.application" #routing.py will be created later
+
+CORS_ORIGIN_WHITELIST = [
+     'http://localhost:3000',
+     'http://127.0.0.1:3000',
+]
