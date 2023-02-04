@@ -40,6 +40,7 @@ def session(request):
         except User.DoesNotExist:
             return Response(status = status.HTTP_404_NOT_FOUND)
         serializer = UserSerializer(user)
+        print(serializer.data)
         return Response(serializer.data)
     return Response(status=status.HTTP_401_UNAUTHORIZED)
 
@@ -82,9 +83,8 @@ def AnnouncementsViewSet(request):
     queryset = Announcement.objects.all()
     serializer = AnnouncementSerializer(queryset, many= True)
     return Response(serializer.data)
-    
 
-
+@api_view(['GET'])
 def google_login(request):
     token_request_uri = "https://accounts.google.com/o/oauth2/auth"
     response_type = "code"
@@ -232,13 +232,15 @@ def announcements(request):
   
 @api_view(['GET'])
 def my_announcements(request):
-    try:
-        announcements = Announcement.objects.filter(Owner_id= request.session['email'])
-    except Announcement.DoesNotExist:
-        return Response(status = status.HTTP_404_NOT_FOUND)
-    serializer = AnnouncementSerializer(announcements, many= True)
-    return Response(serializer.data)
-    
+    if 'email' in request.session:
+        email = request.session.get('email')
+        try:
+            announcements = Announcement.objects.filter(Owner_id= email)
+        except Announcement.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = AnnouncementSerializer(announcements, many= True)
+        return Response(serializer.data)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)    
   
 
 @api_view(['POST'])

@@ -38,12 +38,12 @@ export default function OfferDetails() {
   return (
     <div className="offer-details-ctn">
       <div className="offer-time">
-        PubDate
+        {"PubDate:" + PubDate}
         <div className="seller-contact">
           <img src={sellerImage}></img>
-          Salim zemir
-          <i class="fa-solid fa-message"></i>
-          <i class="fa-solid fa-phone"></i>
+          {seller.PfP}
+          <i className="fa-solid fa-message"></i>
+          <i className="fa-solid fa-phone"></i>
         </div>
       </div>
       <div className="offer-images-ctn">
@@ -52,18 +52,17 @@ export default function OfferDetails() {
         ))}
       </div>
       <div className="offer-details-btns">
-        <div>Type</div>
-        <div>Area</div>
-        <div>4 piece</div>
+        <div>{"Type: " + Type}</div>
+        <div>{"Area: " + Area}</div>
       </div>
       <div className="title-ctn">
-        <div className="title">{offer.title}</div>
+        <div className="title">{Title}</div>
         <div className="price">
           <span>DA </span>
-          {offer.price}
+          {Price}
         </div>
       </div>
-      <p className="description">{offer.description}</p>
+      <p className="description">{Description}</p>
     </div>
   );
 }

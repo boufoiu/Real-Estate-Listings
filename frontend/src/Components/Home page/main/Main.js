@@ -11,7 +11,10 @@ export default function Main() {
   useEffect(() => {
     axios
       .get("/api/announcements/")
-      .then((res) => setLatestOffers(res.data))
+      .then((res) => {
+        console.log(res.data.images);
+        setLatestOffers(res.data.data);
+      })
       .catch((err) => console.log(err));
   }, []);
   return (
@@ -23,7 +26,7 @@ export default function Main() {
       />
       <Link to="/home/create-offer">
         <div className="new-offer">
-          <i class="fa-solid fa-plus"></i>
+          <i className="fa-solid fa-plus"></i>
         </div>
       </Link>
     </div>
