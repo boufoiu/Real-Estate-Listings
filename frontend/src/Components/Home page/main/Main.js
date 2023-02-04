@@ -11,7 +11,7 @@ export default function Main() {
   useEffect(() => {
     axios
     .get("/api/announcements/")
-    .then((res) => setLatestOffers(res.data.slice(0,5)))
+    .then((res) => setLatestOffers(res.data))
     .catch((err) => console.log(err));
   },[]);
   return (

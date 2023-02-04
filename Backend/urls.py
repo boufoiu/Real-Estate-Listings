@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     #path('', include(router.urls)),
     path('api/', include([
+        path("api/user/<int:pk>/", views.user, name="user"),
         path('announcements/', include([
             path('', views.announcements, name='announcements'),
             path('me/', views.my_announcements, name='my_announcements'),
@@ -15,6 +16,7 @@ urlpatterns = [
                 path('offer/', views.send_offer, name='send_offer'),
             ])),
         ])),
+
         path("offer/<int:pk>/response/", views.response_offer, name="response_offer"),
         path("responses/", views.get_responses, name="response_offer"),
         path('favourite/', views.my_favourite, name='my_favourite'),

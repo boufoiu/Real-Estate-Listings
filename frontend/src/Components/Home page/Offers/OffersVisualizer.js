@@ -13,7 +13,7 @@ export default function OffersVisualizer(props) {
       <div className = 'offers-visualizer-title'>{title}</div>
       <div className ={'offers-visualizer'}>
         {offers.map(offer=>(
-          <Offer title = {offer.title} price = {offer.price} description = {offer.description}/>
+          <Offer offer = {offer} />
         ))}
       </div>
     </div>
