@@ -9,15 +9,23 @@ import axios from "axios";
 export default function OfferDetails() {
   const { a_id } = useParams();
   const [offer, setOffer] = useState({});
+  const [photos, setPhotos] = useState([]);
   const [seller, setSeller] = useState({});
   useEffect(() => {
+    console.log(a_id);
+    console.log(Owner);
+
     axios
-      .get("/api/announcements/${a_id}")
+      .get(`/api/announcements/${a_id}`)
       .then((res) => setOffer(res.data))
+      .catch((err) => console.log(err));
+    axios
+      .get(`/api/announcements/${a_id}/get_all_img/`)
+      .then((res) => setPhotos(res.data))
       .catch((err) => console.log(err));
 
     axios
-      .get("/api/user/${offer.Owner}")
+      .get(`/api/user/${Owner}`)
       .then((res) => setSeller(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -47,7 +55,7 @@ export default function OfferDetails() {
         </div>
       </div>
       <div className="offer-images-ctn">
-        {offer.images.map((image) => (
+        {photos.map((image) => (
           <img src={image} className="offer-details-image"></img>
         ))}
       </div>
