@@ -8,8 +8,6 @@ import axios from "axios";
 
 export default function (props) {
   const [offerProps, setOfferProps] = useState({});
-  const [thumb, setThumb] = useState("");
-
   const {
     id,
     PubDate,
@@ -25,7 +23,7 @@ export default function (props) {
     Owner,
   } = props.offer;
   const [seller, setSeller] = useState({});
-  const [src, setSrc] = useState(null);
+  const [src, setSrc] = useState("");
 
   useEffect(() => {
     axios
@@ -38,8 +36,7 @@ export default function (props) {
         console.log('Image: ######################################"');
 
         console.log(res.data);
-        setThumb(res.data);
-        const imageUrl = "data:image/jpg;base64," + thumb;
+        const imageUrl = "data:image/jpg;base64, " + res.data;
         setSrc(imageUrl);
       })
       .catch((err) => console.log(err));
