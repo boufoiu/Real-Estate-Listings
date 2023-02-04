@@ -31,8 +31,45 @@ def scraping(request):
         return Response(status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+@api_view(['GET'])
 def session(request):
-    return HttpResponse(request.session.get('email'))
+    if 'email' in request.session:
+        email = request.session.get('email')
+        try:
+            user = User.objects.get(Email = email )        
+        except User.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = UserSerializer(user)
+        print(serializer.data)
+        return Response(serializer.data)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['GET'])
+def user(request, pk):
+    try:
+        user = User.objects.get(Email = pk )        
+    except User.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    serializer = UserSerializer(user)
+    return Response(serializer.data)
+
+@api_view(['GET', 'DELETE']) # Add modifier une annonce
+def announcement_detail(request, pk):
+    
+    try:
+        announcement = Announcement.objects.get(pk = pk)
+    except Announcement.DoesNotExist:
+        return Response(status = status.HTTP_404_NOT_FOUND)
+    if request.method=='GET':
+        serializer = AnnouncementSerializer(announcement)
+        return Response({ 'data': serializer.data, 'images': get_photos(pk)})
+    elif request.method=='DELETE':
+        if 'email' in request.session:
+            serializer = AnnouncementSerializer(announcement)
+            if announcement.Owner_id == request.session['email']:
+                announcement.delete()
+                return Response(status = status.HTTP_204_NO_CONTENT)
+            return Response(status= status.HTTP_401_UNAUTHORIZED)
 
 
 @api_view(['GET'])
@@ -46,9 +83,8 @@ def AnnouncementsViewSet(request):
     queryset = Announcement.objects.all()
     serializer = AnnouncementSerializer(queryset, many= True)
     return Response(serializer.data)
-    
 
-
+@api_view(['GET'])
 def google_login(request):
     token_request_uri = "https://accounts.google.com/o/oauth2/auth"
     response_type = "code"
@@ -196,13 +232,15 @@ def announcements(request):
   
 @api_view(['GET'])
 def my_announcements(request):
-    try:
-        announcements = Announcement.objects.filter(Owner_id= request.session['email'])
-    except Announcement.DoesNotExist:
-        return Response(status = status.HTTP_404_NOT_FOUND)
-    serializer = AnnouncementSerializer(announcements, many= True)
-    return Response(serializer.data)
-    
+    if 'email' in request.session:
+        email = request.session.get('email')
+        try:
+            announcements = Announcement.objects.filter(Owner_id= email)
+        except Announcement.DoesNotExist:
+            return Response(status = status.HTTP_404_NOT_FOUND)
+        serializer = AnnouncementSerializer(announcements, many= True)
+        return Response(serializer.data)
+    return Response(status=status.HTTP_401_UNAUTHORIZED)    
   
 
 @api_view(['POST'])
