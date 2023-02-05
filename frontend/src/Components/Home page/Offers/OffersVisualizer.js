@@ -8,8 +8,8 @@ export default function OffersVisualizer(props) {
     <div className={"offers-visualizer-ctn-" + place}>
       <div className="offers-visualizer-title">{title}</div>
       <div className={"offers-visualizer"}>
-        {offers.map((offer) => (
-          <Offer key="{offer}" offer={offer} />
+        {offers.map((offer, index) => (
+          <Offer key={offer.id} offer={offer} />
         ))}
       </div>
     </div>

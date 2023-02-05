@@ -3,6 +3,7 @@ import landingImage1 from "../../images/landing-image-1.jpg"
 import "../../styles/landing-page/start.css"
 import CreateAccount from '../Forms/CreateAccount'
 import Navbar from './Navbar'
+import { Link } from "react-router-dom";
 
 export default function Welcome() {
   return (
@@ -13,7 +14,10 @@ export default function Welcome() {
           <div className="landing-text1">Le <span className="org-text">1er</span> site de <br/> l’immobilier en<br/> Algérie </div>
           <div className="landing-text2">Accordez plus de visibilité à vos annonces immobilières 
             <br/> et aidez les gens à trouver les meilleurs endroits</div>
+           <Link to="/home">
           <button className="start-button">Commencer</button>
+    	</Link>
+
           <ul className="stats">
             <li><span className="big-text"><span className="org-text">+</span> 2K</span> <br/> <span className="middle-text">Annonces</span></li>
             <li><span className="big-text"><span className="blue-text">+</span> 5K <br/></span> <span className="middle-text">Clients fideles</span></li>

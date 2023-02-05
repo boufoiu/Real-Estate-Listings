@@ -1,4 +1,5 @@
 import json
+from django.utils import timezone
 import re
 from .models import Announcement, User, Admin, Favourite, Offer, Photo, Response as OfferResponse
 from .serializers import *
@@ -33,6 +34,7 @@ def scraping(request):
 
 @api_view(['GET'])
 def session(request):
+    
     if 'email' in request.session:
         email = request.session.get('email')
         try:
@@ -97,7 +99,9 @@ def google_login(request):
         client_id = client_id,
         redirect_uri = redirect_uri,
         scope = scope)
-    return HttpResponseRedirect(url)
+    print(url)
+    return Response(url)
+    #return HttpResponseRedirect(url)
 
 
 
@@ -133,9 +137,10 @@ def google_authenticate(request):
     if request.session.get('email'):
         request.session.flush()
         
-    request.session['email'] =l['email'] 
-    
-    return HttpResponseRedirect('/session/')
+    request.session['email'] =l['email']
+    print('logged in')
+
+    return HttpResponseRedirect('http://127.0.0.1:3000/home/profile')
 
 
 @api_view(['POST'])
@@ -183,12 +188,13 @@ def announcement_detail(request, pk):
 
 @api_view(['GET', 'POST'])
 def announcements(request):
-    print('foo')
     try:
         announcements = Announcement.objects.all().order_by('-PubDate')
     except Announcement.DoesNotExist:
         return Response(status = status.HTTP_404_NOT_FOUND)
     if request.method=='GET':
+        if 'Category' in request.GET:
+            announcements = announcements.filter(Category= request.GET.get('Category', ''))
         if 'Type' in request.GET:
             announcements = announcements.filter(Type= request.GET.get('Type', ''))
         if 'Wilaya' in request.GET:
@@ -200,8 +206,6 @@ def announcements(request):
         if 'Date_lte' in request.GET:
             announcements = announcements.filter(PubDate__lte= request.GET.get('Date_lte', ''))
         if 'Recherche' in request.GET:
-            print("jvoijkmokspokpkpkpok")
-            print(request.GET.get('Recherche',''))
             announcements = search(request.GET.get('Recherche',''),announcements)
         
         images = []
@@ -218,8 +222,9 @@ def announcements(request):
             data = json.loads(request.data.get('data'))
         except json.JSONDecodeError:
             return Response({ 'error': 'invalid json'}, status = status.HTTP_400_BAD_REQUEST)
+        # data['PubDate'] = '2023-01-07T11:40:10+01:00'
+        data['PubDate'] = timezone.now().strftime("%Y-%m-%dT%H:%M:%S+01:00")
         serializer = AnnouncementSerializer(data= data)
-        print(serializer)
         if serializer.is_valid():
             if 'email' in request.session:
                 if len(request.FILES.getlist('image')) > 0:

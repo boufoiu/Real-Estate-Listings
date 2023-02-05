@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { Link } from "react-router-dom";
 import OffersVisualizer from "../Offers/OffersVisualizer";
 import Offer from "../Offers/Offer";
@@ -18,6 +18,10 @@ export default function Main() {
   }, []);
   return (
     <div>
+      <AnnContext.Provider value={{ latestOffers, setLatestOffers }}>
+        <Search place="home" />
+      </AnnContext.Provider>
+
       <OffersVisualizer
         offers={latestOffers}
         place={"home"}
@@ -31,3 +35,5 @@ export default function Main() {
     </div>
   );
 }
+
+export const AnnContext = createContext();

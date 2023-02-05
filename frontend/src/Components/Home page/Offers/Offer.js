@@ -33,18 +33,15 @@ export default function (props) {
     axios
       .get("/api/announcements/" + id + "/get_thumb/")
       .then((res) => {
-        console.log('Image: ######################################"');
-
-        console.log(res.data);
         const imageUrl = "data:image/jpg;base64, " + res.data;
         setSrc(imageUrl);
       })
       .catch((err) => console.log(err));
 
-    axios
-      .get("/api/user/" + Owner + "/")
-      .then((res) => setSeller(res.data))
-      .catch((err) => console.log(err));
+    // axios
+    //   .get("/api/user/" + Owner + "/")
+    //   .then((res) => setSeller(res.data))
+    //   .catch((err) => console.log(err));
   }, []);
 
   return (
@@ -73,7 +70,7 @@ export default function (props) {
         <div>
           <i className="fa-solid fa-comment-dots"></i>
         </div>
-        <Link to="/home/1">
+        <Link to={"/home/" + id}>
           <button>Details</button>
         </Link>
       </div>

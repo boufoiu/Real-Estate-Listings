@@ -68,11 +68,11 @@ class AnnouncementSpider(CrawlSpider):
         #category
         categ = response.css('td.da_field_text')[0].css('a::text')[1].extract()
         if(categ=='Vente'):
-            category = 1
+            category = 0
         elif(categ=='Location'):
-            category = 3
+            category = 2
         elif(categ=='Location vacances'):
-            category = 4
+            category = 3
         else:
             category=0
         announcement_loader.add_value('Category', category)

@@ -145,6 +145,13 @@ CHANNEL_LAYERS = {
 
 ASGI_APPLICATION = "IGL.asgi.application" #routing.py will be created later
 
+CORS_ALLOW_ALL_ORIGINS = True  
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SECURE = True
+
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:3000',
      'http://127.0.0.1:3000',
