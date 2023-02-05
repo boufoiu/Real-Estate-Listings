@@ -7,10 +7,10 @@ export default function About() {
       <div className="about">
         <div>
           <div className="about-title">A propos</div>
-          <div className="about-text">Lorem Ipsum is simply dummy text<br/>
-           of the printing and typesetting industry.<br/>
-            Lorem Ipsum has been the industry's standard<br/>
-             dummy text ever since the 1500s</div>
+          <div className="about-text"> Darek est une entreprise certifiée<br/>
+           avec plus de 10 ans d'experience dans <br/>
+            le domaine des biens immobilieres<br/>
+          </div>
         </div>  
         <div>
           <div className="about-title">Nos service</div>
