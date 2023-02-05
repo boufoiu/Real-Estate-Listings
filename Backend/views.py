@@ -1,4 +1,5 @@
 import json
+from django.utils import timezone
 import re
 from .models import Announcement, User, Admin, Favourite, Offer, Photo, Response as OfferResponse
 from .serializers import *
@@ -33,6 +34,7 @@ def scraping(request):
 
 @api_view(['GET'])
 def session(request):
+    
     if 'email' in request.session:
         email = request.session.get('email')
         try:
@@ -97,7 +99,8 @@ def google_login(request):
         client_id = client_id,
         redirect_uri = redirect_uri,
         scope = scope)
-    return HttpResponseRedirect(url)
+    print(url)
+    return Response(url)
 
 
 
@@ -133,9 +136,10 @@ def google_authenticate(request):
     if request.session.get('email'):
         request.session.flush()
         
-    request.session['email'] =l['email'] 
+    request.session['email'] =l['email']
+    print('logged in')
     
-    return HttpResponseRedirect('/session/')
+    return HttpResponseRedirect('http://127.0.0.1:3000/home/profile')
 
 
 @api_view(['POST'])
@@ -218,8 +222,9 @@ def announcements(request):
             data = json.loads(request.data.get('data'))
         except json.JSONDecodeError:
             return Response({ 'error': 'invalid json'}, status = status.HTTP_400_BAD_REQUEST)
+        # data['PubDate'] = '2023-01-07T11:40:10+01:00'
+        data['PubDate'] = timezone.now().strftime("%Y-%m-%dT%H:%M:%S+01:00")
         serializer = AnnouncementSerializer(data= data)
-        print(serializer)
         if serializer.is_valid():
             if 'email' in request.session:
                 if len(request.FILES.getlist('image')) > 0:

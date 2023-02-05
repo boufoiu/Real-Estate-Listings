@@ -6,12 +6,12 @@ export default function Favorites() {
   const [favOffers, setFavOffers] = useState([]);
   useEffect(() => {
     axios
-      .get("/api/favorite/")
+      .get("/api/favourite/", { withCredentials: true })
       .then((res) => setFavOffers(res.data))
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div>
+    <div key="foo">
       <OffersVisualizer
         offers={favOffers}
         place={"favorites"}

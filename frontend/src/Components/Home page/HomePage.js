@@ -18,7 +18,7 @@ export default function HomePage() {
       <Routes>
         <Route element={<Search place={"home"} />}>
           <Route path="/" element={<Main />} />
-          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/favourites" element={<Favorites />} />
           <Route path="/create-offer" element={<CreateOffer />} />
           <Route path="/:a_id" element={<OfferDetails />} />
         </Route>

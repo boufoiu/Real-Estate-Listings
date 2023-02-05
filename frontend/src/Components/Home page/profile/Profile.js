@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import OffersVisualizer from "../Offers/OffersVisualizer";
 import profileImage from "../../../images/profile.jpg";
 import "../../../styles/home page/profile/profile.css";
+import Cookies from "universal-cookie";
 
 import axios from "axios";
+
+const cookies = new Cookies();
 
 export default function Profile() {
   const [myOffers, setMyOffers] = useState([]);
@@ -12,15 +15,16 @@ export default function Profile() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.get("/login/");
-      window.location.href = res.request.responseURL;
+      const res = await axios.get("/login/", { withCredentials: true });
+      window.location.href = res.data;
     } catch (err) {
       setError(err);
     }
   };
   useEffect(() => {
+    console.log(cookies.get("csrftoken"));
     axios
-      .get("/session/")
+      .get("/session/", { withCredentials: true })
       .then((res) => setUserInfo(res.data))
       .catch((err) => console.log(err));
     axios
@@ -36,12 +40,12 @@ export default function Profile() {
           Profile
           <i className="fa-solid fa-pen-to-square"></i>
         </div>
-        <img src={profileImage}></img>
+        <img src={userInfos.PfP}></img>
         <div>
           <button onClick={handleLogin}>Login with Google</button>
           {error && <p>{error.message}</p>}
         </div>
-        {JSON.stringify(userInfos)}
+        {/* {JSON.stringify(userInfos)} */}
         <div>
           {userInfos.FirstName} {userInfos.LastName}
         </div>
