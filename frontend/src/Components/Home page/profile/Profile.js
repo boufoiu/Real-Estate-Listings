@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import OffersVisualizer from "../Offers/OffersVisualizer";
 import profileImage from "../../../images/profile.jpg";
 import "../../../styles/home page/profile/profile.css";
@@ -13,20 +15,28 @@ export default function Profile() {
   const [userInfos, setUserInfo] = useState({});
   const [error, setError] = useState(null);
 
-  const handleLogin = async () => {
+  const handleLogout = async () => {
     try {
-      const res = await axios.get("/login/", { withCredentials: true });
-      window.location.href = res.data;
+      const res = await axios.get("/logout/", { withCredentials: true });
+      window.location = "/connect";
     } catch (err) {
       setError(err);
     }
   };
+
+  // const handleLogin = async () => {
+  //   try {
+  //     const res = await axios.get("/login/", { withCredentials: true });
+  //     window.location.href = res.data;
+  //   } catch (err) {
+  //     setError(err);
+  //   }
+  // };
   useEffect(() => {
-    console.log(cookies.get("csrftoken"));
     axios
       .get("/session/", { withCredentials: true })
       .then((res) => setUserInfo(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => (window.location = "/connect"));
     axios
       .get("/api/announcements/me/")
       .then((res) => setMyOffers(res.data))
@@ -38,12 +48,12 @@ export default function Profile() {
       <div className="profile-info">
         <div className="title">
           Profile
-          <i className="fa-solid fa-pen-to-square"></i>
+          {/* <i className="fa-solid fa-pen-to-square"></i> */}
         </div>
         <img src={userInfos.PfP}></img>
         <div>
-          <button onClick={handleLogin}>Login with Google</button>
-          {error && <p>{error.message}</p>}
+          {/* <button onClick={handleLogin}>Login with Google</button>
+          {error && <p>{error.message}</p>} */}
         </div>
         {/* {JSON.stringify(userInfos)} */}
         <div>
@@ -51,12 +61,21 @@ export default function Profile() {
         </div>
         <div>{userInfos.Email}</div>
         <div>{userInfos.PhoneNumber}</div>
+        <button className="connect" onClick={handleLogout}>
+          Logout
+        </button>
+        {error && <p>{error.message}</p>}
       </div>
       <OffersVisualizer
         offers={myOffers}
         place={"profile"}
         title={"Voici les annonces que vous avez partage"}
       />
+      <Link to="/home/create-offer">
+        <div className="new-offer">
+          <i className="fa-solid fa-plus"></i>
+        </div>
+      </Link>
     </div>
   );
 }

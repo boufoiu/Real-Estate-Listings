@@ -39,6 +39,7 @@ export default function CreateOffer() {
         />
       </div>
       <div className="input-ctn">
+        <div className="input-full">Prix:</div>
         <input
           id="price"
           className="input-full"
@@ -86,10 +87,13 @@ export default function CreateOffer() {
         <input
           id="type"
           type="text"
+          className="input-full"
           placeholder="Type du bien: Villa, Terrain..."
           value={obj.Type}
           onChange={(event) => setObj({ ...obj, Type: event.target.value })}
         />
+        <div className="input-half">Area:</div>
+
         <input
           id="area"
           className="input-half"
@@ -99,41 +103,44 @@ export default function CreateOffer() {
           onChange={(event) => setObj({ ...obj, Area: event.target.value })}
         ></input>
       </div>
-      <div className="input-ctn">
+      <div className="input-full">
+        <div className="">Photos:</div>
         <input
           type="file"
+          className="input-full"
           id="files"
           accept="image/png, image/jpg, image/jpeg"
           multiple
           onChange={(event) => {
             setObj({ ...obj, Images: event.target.files });
-            console.log(event.target.files);
           }}
         />
-        <label for="files">Upload Image</label>
       </div>
-      <button
-        onClick={() => {
-          const { Images, ...Json } = obj;
-          const formData = new FormData();
-          for (let i = 0; i < Images.length; i++) {
-            formData.append("image", Images[i]);
-            console.log(Images[0]);
-          }
-          formData.append("data", JSON.stringify(Json));
+      <div>
+        <button
+          className="connect"
+          onClick={() => {
+            const { Images, ...Json } = obj;
+            const formData = new FormData();
+            for (let i = 0; i < Images.length; i++) {
+              formData.append("image", Images[i]);
+            }
+            formData.append("data", JSON.stringify(Json));
 
-          axios
-            .post("/api/announcements/", formData, {
-              headers: {
-                "Content-Type": "multipart/formdata",
-              },
-            })
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
-        }}
-      >
-        Publier l'annonce
-      </button>
+            axios
+              .post("/api/announcements/", formData, {
+                headers: {
+                  "Content-Type": "multipart/formdata",
+                },
+              })
+              .then((res) => console.log(res))
+              .catch((err) => console.log(err));
+            window.location = "/home/profile";
+          }}
+        >
+          Publier l'annonce
+        </button>
+      </div>
     </div>
   );
 }

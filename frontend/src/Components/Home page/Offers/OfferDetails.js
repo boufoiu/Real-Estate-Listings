@@ -8,13 +8,10 @@ import axios from "axios";
 
 export default function OfferDetails() {
   const { a_id } = useParams();
-  console.log(a_id);
   const [offer, setOffer] = useState({});
   const [photos, setPhotos] = useState([]);
   const [seller, setSeller] = useState({});
   useEffect(() => {
-    console.log(a_id);
-
     axios
       .get(`/api/announcements/${a_id}`)
       .then((res) => setOffer(res.data.data))
