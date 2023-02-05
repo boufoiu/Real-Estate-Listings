@@ -1,8 +1,8 @@
 .subscription{
     margin-top: 7vw;
     background-color: #051018;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     padding-right: 100px;
     display: flex;
 }
@@ -18,8 +18,8 @@
 
 .sub-text2{
     font-weight: 200;
-    font-size: 1.5vw;
-    color: rgba(256, 256, 256, 0.7);
+    font-size: 1.2vw;
+    color: white;
 }
 
 .sub-img{
@@ -38,7 +38,7 @@
     border-radius: 10px;
     color: white;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 20px;
     transition: .4s;
     margin-left: 20px;
     width: fit-content;
