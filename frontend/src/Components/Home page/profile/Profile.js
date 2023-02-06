@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import OffersVisualizer from "../Offers/OffersVisualizer";
+import MyOffersVisualizer from "../Offers/MyOffersVisualizer";
 import profileImage from "../../../images/profile.jpg";
 import "../../../styles/home page/profile/profile.css";
 import Cookies from "universal-cookie";
@@ -66,7 +66,7 @@ export default function Profile() {
         </button>
         {error && <p>{error.message}</p>}
       </div>
-      <OffersVisualizer
+      <MyOffersVisualizer
         offers={myOffers}
         place={"profile"}
         title={"Voici les annonces que vous avez partage"}
