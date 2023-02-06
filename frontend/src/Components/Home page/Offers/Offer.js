@@ -64,7 +64,14 @@ export default function (props) {
         {Description.substring(0, 70) + "..."}
       </div>
       <div className="offer-options">
-        <div>
+        <div
+          onClick={() =>
+            axios
+              .post("/api/announcements/" + id + "/favourite/")
+              .then((res) => (window.location = "/home/favorite"))
+              .catch((err) => console.log(err))
+          }
+        >
           <i className="fa-solid fa-heart"></i>
         </div>
         <div>
