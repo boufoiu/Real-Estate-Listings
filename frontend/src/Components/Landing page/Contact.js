@@ -14,8 +14,8 @@ export default function Contact() {
         <div className="contact-desc">
           Vous aussi, Vous êtes un(e) Agence immobilière ! Donner de la
           visibilité a votre Agence immobilière et de vos annonces immobilieres,
-          inscrivez-vous gratuitement sur Dar Jadida et publiez vos annonces
-          immobilieres
+          inscrivez-vous gratuitement sur Dar Jadida et publiez vos
+          announcements immobilieres
         </div>
         <div className="contact-btn-container">
           <button className="tlphn-btn">
