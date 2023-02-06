@@ -4,6 +4,7 @@ import "../../styles/landing-page/start.css"
 import CreateAccount from '../Forms/CreateAccount'
 import Navbar from './Navbar'
 import { Link } from "react-router-dom";
+import Typewriter from "typewriter-effect";
 
 export default function Welcome() {
   return (
@@ -12,12 +13,15 @@ export default function Welcome() {
       <div className="content">
         <div className="welcome-text">
           <div className="landing-text1">Le <span className="org-text">1er</span> site de <br/> l’immobilier en<br/> Algérie </div>
-          <div className="landing-text2">Accordez plus de visibilité à vos annonces immobilières 
-            <br/> et aidez les gens à trouver les meilleurs endroits</div>
-           <Link to="/home">
-          <button className="start-button">Commencer</button>
-    	</Link>
-
+          <div className="landing-text2">
+          <Typewriter
+            options={{
+              strings: ["Accordez plus de visibilité à vos annonces immobilières et aidez les gens à trouver les meilleurs endroits"],
+              autoStart: true,
+              loop: true,
+            }}
+          /></div>
+          <Link to = '/connect'><button className='start-button'>Commencer</button></Link>
           <ul className="stats">
             <li><span className="big-text"><span className="org-text">+</span> 2K</span> <br/> <span className="middle-text">Annonces</span></li>
             <li><span className="big-text"><span className="blue-text">+</span> 5K <br/></span> <span className="middle-text">Clients fideles</span></li>
