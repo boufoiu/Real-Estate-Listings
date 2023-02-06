@@ -68,7 +68,7 @@ export default function (props) {
           onClick={() =>
             axios
               .post("/api/announcements/" + id + "/favourite/")
-              .then((res) => (window.location = "/home/favorite"))
+              .then((res) => (window.location = "/home/favorites"))
               .catch((err) => console.log(err))
           }
         >
