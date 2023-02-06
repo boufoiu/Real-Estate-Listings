@@ -1,9 +1,9 @@
-.about-container {
-  background-color: #040f17;
+.about-container{
+  background-color: #040F17;
   margin-top: 5vw;
 }
 
-.about {
+.about{
   display: flex;
   justify-content: space-between;
   color: white;
@@ -11,26 +11,27 @@
   padding: 1vw 4vw;
 }
 
-.about-title {
+
+.about-title{
   font-weight: 500;
   font-size: 1.7vw;
   margin-bottom: 15px;
   color: white;
 }
 
-.about div ul li {
+.about div ul li{
   font-size: 1vw;
   margin-bottom: 10px;
   color: white;
 }
 
-.tail {
+.tail{
   width: 28%;
   position: relative;
   left: 50%;
-  transform: translate(-50%, -30%);
+  transform: translate(-50%, 0);
 }
-.social-icons {
+.social-icons{
   width: 30%;
   font-size: 1.5vw;
   color: white;
@@ -38,23 +39,25 @@
   justify-content: space-around;
   position: relative;
   left: 50%;
-  transform: translate(-50%, 0%);
+  transform: translate(-50%, -30%);
 }
 
-.social-icons i:hover {
+.social-icons i:hover{
   cursor: pointer;
 }
-.rights {
+.rights{
   color: white;
   font-size: 1.1vw;
 }
 
-.about-text {
+.about-text{
   font-size: 1vw;
   font-weight: 100;
   color: white;
+  ;
 }
 
-.contact-list li {
+.contact-list li{
   list-style-type: none;
 }
+

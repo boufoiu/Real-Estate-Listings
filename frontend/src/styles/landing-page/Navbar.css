@@ -37,7 +37,7 @@
     border-radius: 10px;
     color: white;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 20px;
     transition: .4s;
     margin-left: 20px;
 }
@@ -50,6 +50,8 @@
 .sign-up{
     color: white;
     font-weight: bold;
+    font-size: 20px;
+    margin-right: 20px;
 }
 .sign-up:hover{
     color: #4DFFEA;
