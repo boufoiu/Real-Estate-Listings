@@ -52,7 +52,7 @@ export default function (props) {
         className="offer-image"
       ></img>
       {/* <img src={seller.PfP} className="seller-image"></img> */}
-      <img src={sellerImage} className="seller-image"></img>
+      {/* <img src={sellerImage} className="seller-image"></img> */}
 
       <div className="offer-price">
         {" "}

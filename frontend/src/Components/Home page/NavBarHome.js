@@ -2,13 +2,25 @@ import React from "react";
 import "../../styles/home page/home/navBarHome.css";
 import logo from "../../images/logo-home.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function NavBarHome() {
+  const handleLogout = async () => {
+    try {
+      const res = await axios.get("/logout/", { withCredentials: true });
+      window.location = "/connect";
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
       <div className="virtual-nav-bar"></div>
       <div className="nav-bar-home">
-        <img src={logo} />
+        <Link to="/">
+          <img src={logo} />
+        </Link>
+
         <div className="parameters">
           <Link to="/home/">
             <div className="parameter">
@@ -36,11 +48,9 @@ export default function NavBarHome() {
             </div>
           </Link>
         </div>
-        <Link to="/">
-          <div className="disconnect parameter">
-            <i className="fa-solid fa-arrow-right-from-bracket"></i> Deconnexion
-          </div>
-        </Link>
+        <div onClick={handleLogout} className="disconnect parameter">
+          <i className="fa-solid fa-arrow-right-from-bracket"></i> Deconnexion
+        </div>
       </div>
     </>
   );
