@@ -13,16 +13,18 @@ import CreateOffer from "./Offers/CreateOffer";
 export default function HomePage() {
   return (
     <>
-      <NavBarHome />
-      <ProfileIcon />
+      <NavBarHome/>
+      <ProfileIcon/>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/favourites" element={<Favorites />} />
-        <Route path="/create-offer" element={<CreateOffer />} />
-        <Route path="/:a_id" element={<OfferDetails />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/help" element={<Help />} />
+        <Route element={<Search place = {'home'}/>}>
+          <Route path='/' element={<Main/>}/>
+          <Route path='/favorites' element={<Favorites/>}/>
+          <Route path='/create-offer' element={<CreateOffer/>}/>
+          <Route path='/:id' element={<OfferDetails/>}/>
+        </Route>
+        <Route path='/messages' element={<Messages/>}/>
+        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/help' element={<Help/>}/>
       </Routes>
     </>
   );
