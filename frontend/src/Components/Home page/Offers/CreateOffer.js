@@ -36,7 +36,7 @@ export default function CreateOffer() {
             <input></input>
             <div></div>
         </div>
-        <button>Publier l'annonce</button>
+        <button className='start-button' >Publier l'annonce</button>
     </div>
   )
 }
