@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# TPIGL Django Backend
+
+Réalisation d’une application Web pour la publication et la consultation d’annonces immobilières
+
+In order to test out the backend project, follow these steps:
+
+    clone the repository
+    run: python3 -m venv venv
+    then activate the virtual environment
+    run: pip install -r requirements.txt
+    run: python3 manage.py runserver

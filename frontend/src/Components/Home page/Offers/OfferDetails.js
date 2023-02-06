@@ -1,41 +1,76 @@
-import React, { useState } from 'react'
-import '../../../styles/home page/offers/offerDetails.css'
-import offerImage from '../../../images/offer-details.jpg'
-import sellerImage from '../../../images/seller.png'
+import React, { useState, useEffect } from "react";
+import "../../../styles/home page/offers/offerDetails.css";
+import offerImage from "../../../images/offer-details.jpg";
+import sellerImage from "../../../images/seller.png";
+import { useParams } from "react-router-dom";
+
+import axios from "axios";
 
 export default function OfferDetails() {
-   const [offer, setOffer] = useState({
-    title: 'Tres belle maison',
-    price: '1.325.144',
-    description: 'achete cette maison frero! tu ne retrouvra jamais assi pire que celle ci',
-    images: [offerImage]
-   }) 
+  const { a_id } = useParams();
+  const [offer, setOffer] = useState({});
+  const [photos, setPhotos] = useState([]);
+  const [seller, setSeller] = useState({});
+  useEffect(() => {
+    axios
+      .get(`/api/announcements/${a_id}`)
+      .then((res) => setOffer(res.data.data))
+      .catch((err) => console.log(err));
+    axios
+      .get(`/api/announcements/${a_id}/get_all_img/`)
+      .then((res) => setPhotos(res.data))
+      .catch((err) => console.log(err));
+
+    // axios
+    //   .get(`/api/user/${Owner}`)
+    //   .then((res) => setSeller(res.data))
+    //   .catch((err) => console.log(err));
+  }, []);
+  const {
+    id,
+    PubDate,
+    Title,
+    Description,
+    Price,
+    Area,
+    Type,
+    Category,
+    Wilaya,
+    Commune,
+    Adress,
+    Owner,
+  } = offer;
   return (
-    <div className='offer-details-ctn'>
-        <div className='offer-time'>
-            Partager il y a 2h par 
-            <div className='seller-contact'>
-                <img src={sellerImage}></img>
-                Salim zemir
-                <i class="fa-solid fa-message"></i>
-                <i class="fa-solid fa-phone"></i> 
-            </div>
+    <div className="offer-details-ctn">
+      <div className="offer-time">
+        {"PubDate:" + PubDate}
+        <div className="seller-contact">
+          <img src={sellerImage}></img>
+          {seller.PfP}
+          <i className="fa-solid fa-message"></i>
+          <i className="fa-solid fa-phone"></i>
         </div>
-        <div className='offer-images-ctn'>
-            {offer.images.map(image=>(
-                <img src={image} className='offer-details-image'></img>
-            ))}
+      </div>
+      <div className="offer-images-ctn">
+        {photos.map((image) => (
+          <img
+            src={`data:image/jpg;base64, ${image}`}
+            className="offer-details-image"
+          ></img>
+        ))}
+      </div>
+      <div className="offer-details-btns">
+        <div>{"Type: " + Type}</div>
+        <div>{"Area: " + Area}</div>
+      </div>
+      <div className="title-ctn">
+        <div className="title">{Title}</div>
+        <div className="price">
+          <span>DA </span>
+          {Price}
         </div>
-        <div className='offer-details-btns'>
-            <div>Villa</div>
-            <div>110 m2</div>
-            <div>4 piece</div>
-        </div>
-        <div className='title-ctn'>
-            <div className='title'>{offer.title}</div>
-            <div className='price'><span>DA </span>{offer.price}</div>
-        </div>
-        <p className='description'>{offer.description}</p>
+      </div>
+      <p className="description">{Description}</p>
     </div>
-  )
+  );
 }

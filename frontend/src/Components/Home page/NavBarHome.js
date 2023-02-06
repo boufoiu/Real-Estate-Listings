@@ -1,7 +1,7 @@
-import React from 'react'
-import '../../styles/home page/home/navBarHome.css'
-import logo from "../../images/logo-home.png"
-import { Link } from 'react-router-dom'
+import React from "react";
+import "../../styles/home page/home/navBarHome.css";
+import logo from "../../images/logo-home.png";
+import { Link } from "react-router-dom";
 
 export default function NavBarHome() {
   return (
@@ -18,8 +18,8 @@ export default function NavBarHome() {
               <Link to = '/home/help'><div className='parameter'><i class="fa-solid fa-circle-info"></i>Aide</div></Link>
 
           </div>
-          <Link to = '/'><div className='disconnect parameter'><i class="fa-solid fa-arrow-right-from-bracket"></i> Deconnexion</div></Link>
+        </Link>
       </div>
     </>
-  )
+  );
 }
