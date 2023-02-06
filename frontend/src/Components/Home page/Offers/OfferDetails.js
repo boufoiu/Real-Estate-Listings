@@ -43,7 +43,7 @@ export default function OfferDetails() {
   return (
     <div className="offer-details-ctn">
       <div className="offer-time">
-        {"PubDate:" + PubDate}
+        {"PubDate:  " + PubDate}
         <div className="seller-contact">
           <img src={sellerImage}></img>
           {seller.PfP}
@@ -51,17 +51,12 @@ export default function OfferDetails() {
           <i className="fa-solid fa-phone"></i>
         </div>
       </div>
-      <div className="offer-images-ctn">
-        {photos.map((image) => (
-          <img
-            src={`data:image/jpg;base64, ${image}`}
-            className="offer-details-image"
-          ></img>
-        ))}
-      </div>
       <div className="offer-details-btns">
         <div>{"Type: " + Type}</div>
-        <div>{"Area: " + Area}</div>
+        <div>{"Superficie: " + Area}</div>
+        <div>{"Wilaya: " + Wilaya}</div>
+        <div>{"Commune: " + Commune}</div>
+        <div>{"Adress: " + Adress}</div>
       </div>
       <div className="title-ctn">
         <div className="title">{Title}</div>
@@ -70,7 +65,15 @@ export default function OfferDetails() {
           {Price}
         </div>
       </div>
-      <p className="description">{Description}</p>
+      <p className="offer-description">{Description}</p>
+      <div className="offer-images-ctn">
+        {photos.map((image) => (
+          <img
+            src={`data:image/jpg;base64, ${image}`}
+            className="offer-details-image"
+          ></img>
+        ))}
+      </div>
     </div>
   );
 }
