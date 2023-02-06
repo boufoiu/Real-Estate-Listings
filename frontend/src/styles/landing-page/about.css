@@ -1,6 +1,9 @@
 .about-container{
   background-color: #040F17;
   margin-top: 5vw;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  padding-right: 100px;
 }
 
 .about{
@@ -40,6 +43,7 @@
   position: relative;
   left: 50%;
   transform: translate(-50%, -30%);
+  padding-top: 30px;
 }
 
 .social-icons i:hover{
@@ -48,6 +52,7 @@
 .rights{
   color: white;
   font-size: 1.1vw;
+  padding-top: 20px;
 }
 
 .about-text{
