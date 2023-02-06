@@ -16,7 +16,7 @@ export default function Welcome() {
           <div className="landing-text2">
           <Typewriter
             options={{
-              strings: ["Accordez plus de visibilité à vos annonces immobilières et aidez les gens à trouver les meilleurs endroits"],
+              strings: ["Accordez plus de visibilité à vos annonces immobilières","Aidez les gens à trouver les meilleurs endroits"],
               autoStart: true,
               loop: true,
             }}
