@@ -73,6 +73,7 @@ export default function CreateOffer() {
       </div>
       <select
         id="category"
+        className="input-full"
         value={obj.Category}
         onChange={(event) => setObj({ ...obj, Category: event.target.value })}
       >
@@ -83,7 +84,7 @@ export default function CreateOffer() {
       </select>
       <input
         id="address"
-        className="input-full"
+        className="input-full-2"
         type="text"
         placeholder="L'adresse du bien"
         value={obj.Adress}
@@ -124,7 +125,7 @@ export default function CreateOffer() {
       </div>
       <div>
         <button
-          className="connect"
+          className="start-button-2"
           onClick={() => {
             const { Images, ...Json } = obj;
             const formData = new FormData();
