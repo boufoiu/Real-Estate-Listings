@@ -65,12 +65,17 @@ export default function (props) {
       </div>
       <div className="offer-options">
         <div
-          onClick={() =>
+          onClick={() => {
+            axios
+              .get("/session/", { withCredentials: true })
+              .then(() => console.log("logged in"))
+              .catch(() => (window.location = "/connect"));
+
             axios
               .post("/api/announcements/" + id + "/favourite/")
               .then((res) => (window.location = "/home/favorites"))
-              .catch((err) => console.log(err))
-          }
+              .catch((err) => console.log(err));
+          }}
         >
           <i className="fa-solid fa-heart"></i>
         </div>

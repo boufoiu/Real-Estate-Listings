@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/home page/home/navBarHome.css";
 import logo from "../../images/logo-home.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
-
 export default function NavBarHome() {
+  const [islogged, setislogged] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("/session/", { withCredentials: true })
+      .then(() => setislogged(true))
+      .catch(() => setislogged(false));
+  }, []);
+
   const handleLogout = async () => {
     try {
       const res = await axios.get("/logout/", { withCredentials: true });
@@ -48,9 +56,13 @@ export default function NavBarHome() {
             </div>
           </Link>
         </div>
-        <div onClick={handleLogout} className="disconnect parameter">
-          <i className="fa-solid fa-arrow-right-from-bracket"></i> Deconnexion
-        </div>
+        {islogged ? (
+          <div onClick={handleLogout} className="disconnect parameter">
+            <i className="fa-solid fa-arrow-right-from-bracket"></i> Deconnexion
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
     </>
   );

@@ -6,6 +6,11 @@ export default function Favorites() {
   const [favOffers, setFavOffers] = useState([]);
   useEffect(() => {
     axios
+      .get("/session/", { withCredentials: true })
+      .then(() => console.log("logged in"))
+      .catch(() => (window.location = "/connect"));
+
+    axios
       .get("/api/favourite/", { withCredentials: true })
       .then((res) => setFavOffers(res.data))
       .catch((err) => console.log(err));
