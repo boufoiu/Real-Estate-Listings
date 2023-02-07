@@ -55,5 +55,5 @@ images.send_keys('/home/rayane/Desktop/tttttt/TPIGL/images/22974_20221226_103913
 
 time.sleep(3)
 
-submit_button = driver.find_element_by_class_name("connect")
+submit_button = driver.find_element_by_class_name("start-button-2")
 submit_button.click()
