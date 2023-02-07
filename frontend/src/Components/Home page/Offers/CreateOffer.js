@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../../styles/home page/offers/createOffer.css";
 
@@ -15,6 +15,12 @@ export default function CreateOffer() {
     Adress: "",
     Images: [],
   });
+  useEffect(() => {
+    axios
+      .get("/session/", { withCredentials: true })
+      .then(() => console.log("logged in"))
+      .catch(() => (window.location = "/connect"));
+  }, []);
   return (
     <div className="create-offer-form">
       <div className="title">Ajouter une annonce</div>

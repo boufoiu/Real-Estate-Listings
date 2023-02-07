@@ -23,7 +23,6 @@ export default function NavBarHome() {
   };
   return (
     <>
-      <div className="virtual-nav-bar"></div>
       <div className="nav-bar-home">
         <Link to="/">
           <img src={logo} />
